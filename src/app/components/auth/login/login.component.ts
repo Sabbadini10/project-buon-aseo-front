@@ -70,12 +70,16 @@ export class LoginComponent implements OnInit {
     }) */
 
     this.authService.login(user).subscribe(
-      (data: any) => {
+      (response: any) => {
+        console.log('Respuesta completa:', response);
+        const data = response.body; // Asumiendo que la respuesta es un objeto con una propiedad 'body' que contiene los datos JSON
         console.log(data);
-        this.router.navigateByUrl("/home");
+        if (data) {
+          this.router.navigateByUrl("/home");
+        }
       },
       (error: any) => {
-        console.log(error)
+        console.log(error);
         console.error('Error al llamar a la API:', error);
       }
     );
