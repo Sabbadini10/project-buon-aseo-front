@@ -64,12 +64,17 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.submittedLogin = false;
   
-   /*  this.authService.login(user).subscribe((data: any) => {
-      console.log(data);
+  this.authService.login(user).subscribe((data: any) => {
+     try {
+      const parsedData = JSON.parse(data);
       this.router.navigateByUrl("/home");
-    }) */
+      console.log(parsedData);
+    } catch (error) {
+      console.error('Error parsing login response:', error);
+    }
+    }) 
 
-    this.authService.login(user).subscribe(
+   /*  this.authService.login(user).subscribe(
       (response: any) => {
         console.log('Respuesta completa:', response);
         const data = response.body; // Asumiendo que la respuesta es un objeto con una propiedad 'body' que contiene los datos JSON
@@ -83,7 +88,8 @@ export class LoginComponent implements OnInit {
         console.error('Error al llamar a la API:', error);
       }
     );
-  }
+  } */
+}
   private loginUser() {
     return {
         email: this.loginForm.controls['email'].value,
