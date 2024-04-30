@@ -17,13 +17,6 @@ constructor(private _http: HttpClient) { }
 public login(user: any): Observable<any> {
   const headers = getHeaders();
   console.log(`${this.BASE_URL()}/auth/signin`);
-  return this._http.post<any>(`${this.BASE_URL()}/auth/signin`, user)
-    .pipe(
-      catchError((error) => {
-        console.log(error.message)
-        console.error('Error al llamar a la API:', error);
-        return throwError(error);
-      })
-    );
+  return this._http.post<any>(`${this.BASE_URL()}/auth/signin`, user, {headers})
 }
 }
