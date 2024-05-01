@@ -1,0 +1,6 @@
+{
+    "/api": {
+    "target": "https://mammoth-urial-sabbadini.koyeb.app",
+    "secure": false
+    }
+    }

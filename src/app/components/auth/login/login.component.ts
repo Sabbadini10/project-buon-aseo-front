@@ -67,15 +67,19 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.submittedLogin = false;
       
-    this.authService.login(user.email, user.password)
-    .subscribe(
+    this.authService.login(user.email, user.password).subscribe(
       (response: any) => {
         console.log(response);
-        // Manejar la respuesta exitosa del servidor
+        this.router.navigateByUrl('/home')
       },
       (error: any) => {
         console.error(error);
-        // Manejar el error de la solicitud
+        if (error.error instanceof SyntaxError) {
+          // Manejar el error de análisis JSON aquí
+          console.error('Error de análisis JSON:', error.error);
+        } else {
+          // Manejar otros tipos de errores
+        }
       }
     );
 }
