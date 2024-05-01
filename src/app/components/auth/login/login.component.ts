@@ -59,7 +59,10 @@ export class LoginComponent implements OnInit {
       return;
     }
   
-    const user = JSON.stringify(this.loginUser());
+    const user = {
+      email: this.loginForm.controls['email'].value,
+      password: this.loginForm.controls['password'].value
+  }
     console.log(user);
     this.isLoading = true;
     this.submittedLogin = false;
@@ -84,22 +87,6 @@ export class LoginComponent implements OnInit {
         console.error('Error en la solicitud al servidor:', error);
       }
     );
-
-   /*  this.authService.login(user).subscribe(
-      (response: any) => {
-        console.log('Respuesta completa:', response);
-        const data = response.body; // Asumiendo que la respuesta es un objeto con una propiedad 'body' que contiene los datos JSON
-        console.log(data);
-        if (data) {
-          this.router.navigateByUrl("/home");
-        }
-      },
-      (error: any) => {
-        console.log(error);
-        console.error('Error al llamar a la API:', error);
-      }
-    );
-  } */
 }
   private loginUser() {
     return {
