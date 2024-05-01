@@ -59,13 +59,14 @@ export class LoginComponent implements OnInit {
       return;
     }
   
-    const user = this.loginUser();
+    const user = JSON.stringify(this.loginUser());
     console.log(user);
     this.isLoading = true;
     this.submittedLogin = false;
-  
+      
     this.authService.login(user).subscribe(
       (response) => {
+        console.log("Successfully logged in" + " " + response)
         if (response) {
           try {
             const data = JSON.parse(response);
