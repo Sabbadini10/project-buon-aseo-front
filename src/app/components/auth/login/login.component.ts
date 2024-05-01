@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
   
   this.authService.login(user).subscribe((data: any) => {
      try {
-      const parsedData = JSON.parse(data);
+      const parsedData = data;
       this.router.navigateByUrl("/home");
       console.log(parsedData);
     } catch (error) {
