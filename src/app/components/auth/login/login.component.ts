@@ -67,27 +67,20 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.submittedLogin = false;
       
-    this.authService.login(user).subscribe(
-      (response) => {
-        console.log("Successfully logged in" + " " + response)
-        if (response) {
-          try {
-            const data = response;
-            const user = localStorage.getItem("user") !== undefined ? data : null;
-            console.log(user)
-            console.log("Successfully logged in" + " " + data)
-          } catch (error) {
-            console.error('Error al analizar la respuesta del servidor:', error);
-          }
-        } else {
-          console.warn('La respuesta del servidor está vacía o es undefined');
-        }
+    this.authService.login(user.email, user.password)
+    .subscribe(
+      (response: any) => {
+        console.log(response);
+        // Manejar la respuesta exitosa del servidor
       },
-      (error) => {
-        console.error('Error en la solicitud al servidor:', error);
+      (error: any) => {
+        console.error(error);
+        // Manejar el error de la solicitud
       }
     );
 }
+
+
   private loginUser() {
     return {
         email: this.loginForm.controls['email'].value,

@@ -14,7 +14,8 @@ export class AuthService {
   private router = inject(Router)
 constructor(private _http: HttpClient) { }
 
-public login(user: any): Observable<any> {
+public login(email: string, password: string): Observable<any> {
+  const user = { email, password }
   const headers = getHeaders();
   console.log(`${this.BASE_URL()}/auth/signin`);
   return this._http.post<any>(`${this.BASE_URL()}/auth/signin`, user, {headers})
