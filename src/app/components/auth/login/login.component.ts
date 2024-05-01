@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
-import { map, Subscription } from 'rxjs';
+import { catchError, map, Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -64,15 +64,22 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.submittedLogin = false;
   
-  this.authService.login(user).subscribe((data: any) => {
-     try {
-      const parsedData = data;
-      this.router.navigateByUrl("/home");
-      console.log(parsedData);
-    } catch (error) {
-      console.error('Error parsing login response:', error);
-    }
-    }) 
+    this.authService.login(user).pipe(
+      tap((data: any) => {
+        try {
+          const parsedData = JSON.parse(data);
+          this.router.navigateByUrl("/home");
+          console.log(parsedData);
+        } catch (error) {
+          console.error('Error al analizar la respuesta del inicio de sesión:', error);
+        }
+      }),
+      catchError((error: any) => {
+        console.error('Error al iniciar sesión:', error);
+        // Manejar el error de la solicitud
+        throw error; // Reenviar el error para que sea capturado por otro operador
+      })
+    ).subscribe();
 
    /*  this.authService.login(user).subscribe(
       (response: any) => {
