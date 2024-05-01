@@ -69,6 +69,8 @@ export class LoginComponent implements OnInit {
         if (response) {
           try {
             const data = JSON.parse(response);
+            const user = localStorage.getItem("user") !== undefined ? data : null;
+            console.log(user)
             console.log("Successfully logged in" + " " + data)
           } catch (error) {
             console.error('Error al analizar la respuesta del servidor:', error);
