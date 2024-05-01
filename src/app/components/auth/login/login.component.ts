@@ -64,22 +64,23 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.submittedLogin = false;
   
-    this.authService.login(user).pipe(
-      tap((data: any) => {
-        try {
-          const parsedData = JSON.parse(data);
-          this.router.navigateByUrl("/home");
-          console.log(parsedData);
-        } catch (error) {
-          console.error('Error al analizar la respuesta del inicio de sesión:', error);
+    this.authService.login(user).subscribe(
+      (response) => {
+        if (response) {
+          try {
+            const data = JSON.parse(response);
+            console.log("Successfully logged in" + " " + data)
+          } catch (error) {
+            console.error('Error al analizar la respuesta del servidor:', error);
+          }
+        } else {
+          console.warn('La respuesta del servidor está vacía o es undefined');
         }
-      }),
-      catchError((error: any) => {
-        console.error('Error al iniciar sesión:', error);
-        // Manejar el error de la solicitud
-        throw error; // Reenviar el error para que sea capturado por otro operador
-      })
-    ).subscribe();
+      },
+      (error) => {
+        console.error('Error en la solicitud al servidor:', error);
+      }
+    );
 
    /*  this.authService.login(user).subscribe(
       (response: any) => {
