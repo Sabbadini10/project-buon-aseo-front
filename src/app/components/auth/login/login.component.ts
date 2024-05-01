@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         console.log("Successfully logged in" + " " + response)
         if (response) {
           try {
-            const data = JSON.parse(response);
+            const data = response;
             const user = localStorage.getItem("user") !== undefined ? data : null;
             console.log(user)
             console.log("Successfully logged in" + " " + data)
