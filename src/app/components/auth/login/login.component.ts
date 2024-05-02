@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   private subs: Array<Subscription> = [];
   public submittedLogin = false;
   public fieldTextType?: boolean = false;
+  currentUser = signal('');
   constructor() { 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -71,7 +72,8 @@ export class LoginComponent implements OnInit {
       {
         next: (res) => {
           if (res) {
-           localStorage.setItem('currentUser', JSON.stringify(res))
+          this.currentUser.set(localStorage.getItem('currentUser') || '') 
+           localStorage.setItem(this.currentUser(), JSON.stringify(res))
             this.router.navigate(['/home']);
           } else {
             console.log('Correo o contraseña incorrectos');
