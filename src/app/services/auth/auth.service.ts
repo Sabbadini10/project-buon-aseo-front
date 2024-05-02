@@ -24,9 +24,9 @@ constructor() {
 
 public login(email: string, password: string): Observable<any> {
   const user = { email, password }
-  /* const headers = getHeaders(); */
+   const headers = getHeaders(); 
   console.log(`${this.BASE_URL()}/auth/signin`);
-  return this._http.post<User>(`${this.BASE_URL()}/auth/signin`, {email, password})
+  return this._http.post<User>(`${this.BASE_URL()}/auth/signin`, {email, password}, {headers})
 }
 
 public get currentUserValue(): any {
