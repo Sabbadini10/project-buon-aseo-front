@@ -70,19 +70,14 @@ export class LoginComponent implements OnInit {
       
     this.authService.login(user.email, user.password).subscribe({
       next: (res) => {
-        if (res) {
-          const transformedObj1 = JSON.parse(res, (key, value) => {
-            return typeof value === "object" ? undefined : value;
-          });
-          console.log(transformedObj1)
-          localStorage.setItem('currentUser', JSON.stringify(transformedObj1));
+        if ((res: any) => res.json()) {
           this.router.navigate(['/home']);
         } else {
           this.showError('Correo o contraseña incorrectos');
         }
       },
       error: (error) => {
-        this.error.set(error);
+        this.error = error;
         this.showError(error);
         this.isLoading = false;
         this.isLoading = false;

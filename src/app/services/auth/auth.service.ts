@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
 import { getHeaders } from '../../utils/header';
 import { User } from '../../interfaces/User';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +16,15 @@ export class AuthService {
   private _http= inject(HttpClient);
   private router = inject(Router);
   private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
-constructor() {
-  this.currentUserSubject = new BehaviorSubject<User>(
-    JSON.parse(localStorage.getItem('currentUser') || '{}'),
-  );
-  this.currentUser = this.currentUserSubject.asObservable();
+constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+
+  let currentUser = null;
+  if (isPlatformBrowser(this.platformId)) {
+    currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+  }
+
+  this.currentUserSubject = new BehaviorSubject<User>(currentUser);
+  console.log(this.currentUserSubject)
 }
 
 public login(email: string, password: string): Observable<any> {
