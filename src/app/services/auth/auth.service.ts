@@ -15,14 +15,7 @@ export class AuthService {
   private BASE_URL = signal(environment.apiUrl);
   private _http= inject(HttpClient);
   private router = inject(Router);
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
 constructor() {
-  this.currentUserSubject = new BehaviorSubject<User>(
-    JSON.parse(localStorage.getItem('currentUser') || '{}'),
-  );
-  this.currentUser = this.currentUserSubject.asObservable();
-
 }
 
 
@@ -34,7 +27,7 @@ public login(email: string, password: string): Observable<any> {
   console.log(`${this.BASE_URL()}/auth/signin`);
   return this._http.post<User>(`${this.BASE_URL()}/auth/signin`, {email, password}, {headers})
 }
-
+/* 
 public get currentUserValue(): any {
   return this.currentUserSubject.value;
 }
@@ -47,5 +40,5 @@ logout() {
   localStorage.removeItem('currentUser');
   this.currentUserSubject.next(this.currentUserValue);
   return of({ success: false });
-}
+} */
 }

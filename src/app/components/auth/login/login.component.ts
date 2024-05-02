@@ -73,11 +73,19 @@ export class LoginComponent implements OnInit {
       },
       error => {
         console.error(error);
-        if (error.error instanceof SyntaxError) {
+      
+        if (error instanceof SyntaxError) {
           // Manejar el error de análisis JSON aquí
-          console.error('Error de análisis JSON:', error.error);
+          console.error('Error de análisis JSON:', error);
+        } else if (typeof error.error === 'string') {
+          // Manejar errores donde error.error es una cadena de texto
+          console.error('Error de servidor:', error.error);
+        } else if (typeof error.error === 'object') {
+          // Manejar errores donde error.error es un objeto
+          console.error('Error de servidor:', error.error);
         } else {
           // Manejar otros tipos de errores
+          console.error('Error desconocido:', error);
         }
       }
     );
