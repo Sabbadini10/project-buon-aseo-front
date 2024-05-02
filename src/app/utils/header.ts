@@ -1,15 +1,13 @@
 import { HttpHeaders } from '@angular/common/http';
 
 export function getHeaders(): HttpHeaders {
-  let user;
-  try {
-    user = JSON.parse(localStorage['currentUser']);
-  } catch (error) {
-    console.warn('Error parsing currentUser from localStorage:', error);
+  let user = null;
+
+  if (typeof window !== 'undefined') {
+    user = JSON.parse(localStorage['currentUser'] || '{}');
   }
 
-  const headers = new HttpHeaders()
-    .set('Content-Type', 'application/json');
+  const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   if (user && user.token) {
     headers.set('Authorization', user.token);

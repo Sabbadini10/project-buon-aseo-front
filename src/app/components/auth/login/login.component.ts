@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   public submittedError = signal(false);
   public submittedExito = signal(false);
   messageError = signal('');
-  error = signal('');
   private subs: Array<Subscription> = [];
   public submittedLogin = false;
   public fieldTextType?: boolean = false;
@@ -66,22 +65,22 @@ export class LoginComponent implements OnInit {
   }
     console.log(user);
     this.isLoading = true;
-    this.isLoading = false;
+    this.submittedLogin = false;
       
-    this.authService.login(user.email, user.password).subscribe({
-      next: (res) => {
-        if ((res: any) => res.json()) {
-          this.router.navigate(['/home']);
+    this.authService.login(user.email, user.password).subscribe(response => {
+        console.log(response);
+        this.router.navigateByUrl('/home')
+      },
+      error => {
+        console.error(error);
+        if (error.error instanceof SyntaxError) {
+          // Manejar el error de análisis JSON aquí
+          console.error('Error de análisis JSON:', error.error);
         } else {
-          console.log('Correo o contraseña incorrectos');
+          // Manejar otros tipos de errores
         }
-      },
-      error: (error) => {
-        this.error = error;
-        this.isLoading = false;
-        this.isLoading = false;
-      },
-    });
+      }
+    );
 }
 
 
