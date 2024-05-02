@@ -7,6 +7,7 @@ export function getHeaders(): HttpHeaders {
   if (user && user.token) {
     headers.set('Authorization', user.token);
   }
-
+  console.log(user)
+  console.log(headers)
   return headers;
 }
