@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { catchError, map, Subscription, tap } from 'rxjs';
+import { HttpErrorInterceptor } from '../../../utils/http.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { catchError, map, Subscription, tap } from 'rxjs';
   imports: [RouterModule, ReactiveFormsModule, FormsModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService, HttpClient]
+  providers: [AuthService, HttpClient, { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }]
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
@@ -67,28 +68,21 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.submittedLogin = false;
       
-    this.authService.login(user).subscribe(response => {
-        console.log(response);
-        this.router.navigateByUrl('/home')
-      },
-      error => {
-        console.error(error);
-      
-        if (error instanceof SyntaxError) {
-          // Manejar el error de análisis JSON aquí
-          console.error('Error de análisis JSON:', error);
-        } else if (typeof error.error === 'string') {
-          // Manejar errores donde error.error es una cadena de texto
-          console.error('Error de servidor:', error.error);
-        } else if (typeof error.error === 'object') {
-          // Manejar errores donde error.error es un objeto
-          console.error('Error de servidor:', error.error);
-        } else {
-          // Manejar otros tipos de errores
-          console.error('Error desconocido:', error);
-        }
-      }
-    );
+    this.authService.login(user).subscribe(
+      {
+        next: (res) => {
+          if (res) {
+            /* localStorage.setItem('currentUser', JSON.stringify(res)); */
+            this.router.navigate(['/home']);
+          } else {
+            console.log('Correo o contraseña incorrectos');
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.submittedLogin = false;
+        },
+      });
 }
 
 
