@@ -73,24 +73,17 @@ export class LoginComponent implements OnInit {
         if ((res: any) => res.json()) {
           this.router.navigate(['/home']);
         } else {
-          this.showError('Correo o contraseña incorrectos');
+          console.log('Correo o contraseña incorrectos');
         }
       },
       error: (error) => {
         this.error = error;
-        this.showError(error);
         this.isLoading = false;
         this.isLoading = false;
       },
     });
 }
 
-showError(message: string) {
-  this.error.set(message);
-  setTimeout(() => {
-    this.error.set('');
-  }, 5000);
-}
 
   private loginUser() {
     return {
