@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.submittedLogin = false;
       
-    this.authService.login(user.email, user.password).subscribe(response => {
+    this.authService.login(user).subscribe(response => {
         console.log(response);
         this.router.navigateByUrl('/home')
       },
