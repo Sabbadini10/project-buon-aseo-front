@@ -3,6 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 export function getHeaders(): HttpHeaders {
   const windowObject = getWindow();
   const user = windowObject && windowObject.localStorage.getItem('currentUser');
+  console.log(user)
   const currentUser = user ? JSON.parse(user) : null;
 
   const headers = new HttpHeaders()

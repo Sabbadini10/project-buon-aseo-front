@@ -71,10 +71,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(user).subscribe(
       {
         next: (res) => {
+          console.log(res);
           if (res) {
             /* localStorage.setItem('currentUser', JSON.stringify(res)) */
-            this.setItemInLocalStorage('currentUser', JSON.stringify(res));
-          this.isLoading = false;
+            setTimeout(() => { 
+              this.setItemInLocalStorage('currentUser', JSON.stringify(res));
+              this.isLoading = false;
+            }, 5000)
            console.log("usuario logueado" + this.currentUser())
             this.router.navigate(['/home']);
           } else {
