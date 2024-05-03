@@ -1,4 +1,4 @@
-import { inject, Injectable, isDevMode, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environment/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,19 +16,13 @@ export class AuthService {
   private router = inject(Router);
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-
-  constructor() {
-    const windowObject = this.getWindow();
-    const user = windowObject && windowObject.localStorage.getItem('currentUser')
-      ? JSON.parse(windowObject.localStorage.getItem('currentUser') || '{}')
-      : {};
-    this.currentUserSubject = new BehaviorSubject<User>(user);
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
-
-  private getWindow(): Window | null {
-    return isDevMode() && typeof window === 'undefined' ? null : window;
-  }
+constructor() {
+  const user = localStorage.getItem('currentUser')
+  ? JSON.parse(localStorage.getItem('currentUser') || '{}')
+  : {};
+this.currentUserSubject = new BehaviorSubject<User>(user);
+this.currentUser = this.currentUserSubject.asObservable();
+}
 
 
 public get currentUserValue(): User {
