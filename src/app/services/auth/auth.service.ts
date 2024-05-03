@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
 import { getHeaders } from '../../utils/header';
 import { User } from '../../interfaces/User';
-import { isPlatformBrowser } from '@angular/common';
-import { Inject, PLATFORM_ID } from '@angular/core';
+import { AsyncLocalStorage } from 'async_hooks';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +17,13 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 constructor() {
-  this.currentUserSubject = new BehaviorSubject<User>(
-    JSON.parse(localStorage.getItem('currentUser') || '{}')
-  );
-  this.currentUser = this.currentUserSubject.asObservable();
+  const user = localStorage!.getItem('currentUser')
+  ? JSON.parse(localStorage!.getItem('currentUser') || '{}')
+  : {};
+this.currentUserSubject = new BehaviorSubject<User>(user);
+this.currentUser = this.currentUserSubject.asObservable();
 }
+
 
 public get currentUserValue(): User {
   return this.currentUserSubject.value;
