@@ -72,10 +72,9 @@ export class LoginComponent implements OnInit {
       {
         next: (res) => {
           if (res) {
-          this.currentUser.set(localStorage.getItem('currentUser') || '') 
-          setTimeout(() =>{
-            localStorage.setItem(this.currentUser(), JSON.stringify(res))
-          }, 5000)
+           /* localStorage.getItem('currentUser')  */
+         /*  this.currentUser.set(localStorage.getItem('currentUser') || res)  */
+            localStorage.setItem('currentUser', JSON.stringify(res))
           this.isLoading = false;
            console.log("usuario logueado" + this.currentUser())
             this.router.navigate(['/home']);
