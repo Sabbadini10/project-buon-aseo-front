@@ -3,7 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { AuthComponent } from './components/auth/auth.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { HttpClient, HttpHandler, withFetch, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpErrorInterceptor } from './utils/http.interceptor';
+import { ErrorInterceptor } from './core/interceptor/error.interceptor';
+
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ import { HttpErrorInterceptor } from './utils/http.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,
-      useClass: HttpErrorInterceptor
+      useClass: ErrorInterceptor
     }],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
