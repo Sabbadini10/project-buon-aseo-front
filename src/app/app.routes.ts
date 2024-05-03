@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { PageComponent } from './components/page-not-found/page.component';
 import { PasswordLostComponent } from './components/auth/password-lost/password-lost.component';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -12,6 +13,7 @@ export const routes: Routes = [
         children: [
             {
                 path: 'signin',
+                canActivate: [AuthGuard],
                 title: 'Login',
                 component: LoginComponent
             },

@@ -2,7 +2,7 @@ import { inject, Injectable, isDevMode, signal } from '@angular/core';
 import { environment } from '../../../environment/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { getHeaders } from '../../utils/header';
 import { User } from '../../interfaces/User';
 
@@ -16,37 +16,32 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 constructor() {
-  const windowObject = this.getWindow();
-    const user = windowObject && windowObject.localStorage.getItem('currentUser')
-      ? JSON.parse(windowObject.localStorage.getItem('currentUser') || '{}')
-      : {};
-    this.currentUserSubject = new BehaviorSubject<User>(user);
-    this.currentUser = this.currentUserSubject.asObservable();
+  this.currentUserSubject = new BehaviorSubject<User>(
+    JSON.parse(localStorage.getItem('currentUser') || '{}')
+  );
+  this.currentUser = this.currentUserSubject.asObservable();
 }
 
 private getWindow(): Window | null {
   return isDevMode() && typeof window === 'undefined' ? null : window;
 }
 
-public get currentUserValue(): User {
-  return this.currentUserSubject.value;
-}
+public login(users: any) {
+	return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ users })
+		.pipe(map((user) => { localStorage.setItem("currentUser", JSON.stringify(user));
+				this.currentUserSubject.next(user);
+				return user;
+			})
+		);
+} 
 
-public login(user: any): Observable<any> {
-  console.log(user)
-   const headers = getHeaders(); 
-   console.log(headers)
-  console.log(`${this.BASE_URL()}/auth/signin`);
-  return this._http.post<User>(`${this.BASE_URL()}/auth/signin`, user, {headers})
-}
-/* 
 public get currentUserValue(): any {
   return this.currentUserSubject.value;
 }
 
 public setUserValue(body: any) {
   this.currentUserSubject.next(body);
-} */
+} 
 
 logout() {
   localStorage.removeItem('currentUser');

@@ -71,17 +71,15 @@ export class LoginComponent implements OnInit {
     this.authService.login(user).subscribe(
       {
         next: (res) => {
-          console.log(res);
+          console.log("log res" + res);
           if (res) {
-            /* localStorage.setItem('currentUser', JSON.stringify(res)) */
-            setTimeout(() => { 
-              this.setItemInLocalStorage('currentUser', JSON.stringify(res));
-              this.isLoading = false;
-            }, 5000)
-           console.log("usuario logueado" + this.currentUser())
-            this.router.navigate(['/home']);
+            const token = this.authService.currentUserValue.token;
+            console.log("token: " + token);
+            if (token) {
+              this.router.navigate(['/home']);
+            }
           } else {
-            console.log('Correo o contraseña incorrectos');
+            this.messageError.set("Inicio de sesión inválido")
           }
         },
         error: (error) => {
@@ -95,6 +93,12 @@ setItemInLocalStorage(key: string, value: string) {
   const windowObject = this.getWindow();
   if (windowObject && windowObject.localStorage) {
     windowObject.localStorage.setItem(key, value);
+  }
+}
+getItemInLocalStorage(value: string) {
+  const windowObject = this.getWindow();
+  if (windowObject && windowObject.localStorage) {
+    windowObject.localStorage.getItem(value);
   }
 }
 
