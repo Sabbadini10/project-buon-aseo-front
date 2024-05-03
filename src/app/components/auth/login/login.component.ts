@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, isDevMode, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -72,7 +72,8 @@ export class LoginComponent implements OnInit {
       {
         next: (res) => {
           if (res) {
-            localStorage.setItem('currentUser', JSON.stringify(res))
+            /* localStorage.setItem('currentUser', JSON.stringify(res)) */
+            this.setItemInLocalStorage('currentUser', JSON.stringify(res));
           this.isLoading = false;
            console.log("usuario logueado" + this.currentUser())
             this.router.navigate(['/home']);
@@ -87,7 +88,16 @@ export class LoginComponent implements OnInit {
       });
 }
 
+setItemInLocalStorage(key: string, value: string) {
+  const windowObject = this.getWindow();
+  if (windowObject && windowObject.localStorage) {
+    windowObject.localStorage.setItem(key, value);
+  }
+}
 
+getWindow(): Window | null {
+  return isDevMode() && typeof window === 'undefined' ? null : window;
+}
   private loginUser() {
     return {
         email: this.loginForm.controls['email'].value,
