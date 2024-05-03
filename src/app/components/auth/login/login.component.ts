@@ -75,8 +75,8 @@ export class LoginComponent implements OnInit {
           this.currentUser.set(localStorage.getItem('currentUser') || '') 
           setTimeout(() =>{
             localStorage.setItem(this.currentUser(), JSON.stringify(res))
-          }, 2000)
-           
+          }, 5000)
+          this.isLoading = false;
            console.log("usuario logueado" + this.currentUser())
             this.router.navigate(['/home']);
           } else {
