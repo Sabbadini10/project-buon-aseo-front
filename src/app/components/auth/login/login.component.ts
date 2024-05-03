@@ -73,7 +73,11 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           if (res) {
           this.currentUser.set(localStorage.getItem('currentUser') || '') 
-           localStorage.setItem(this.currentUser(), JSON.stringify(res))
+          setTimeout(() =>{
+            localStorage.setItem(this.currentUser(), JSON.stringify(res))
+          }, 2000)
+           
+           console.log("usuario logueado" + this.currentUser())
             this.router.navigate(['/home']);
           } else {
             console.log('Correo o contraseña incorrectos');
