@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { catchError, map, Subscription, tap } from 'rxjs';
-import { HttpErrorInterceptor } from '../../../utils/http.interceptor';
+import { ErrorInterceptor } from '../../../core/interceptor/error.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { HttpErrorInterceptor } from '../../../utils/http.interceptor';
   imports: [RouterModule, ReactiveFormsModule, FormsModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService, HttpClient, { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }]
+  providers: [AuthService, HttpClient]
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
