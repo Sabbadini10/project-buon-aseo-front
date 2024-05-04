@@ -19,36 +19,27 @@ export class AuthService {
   public currentUser: Observable<User>;
 
 
-constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-  const userFromLocalStorage = JSON.parse(localStorage.getItem('currentUser') || '{}')
-
-  this.currentUserSubject = new BehaviorSubject<User>(userFromLocalStorage);
+constructor() {
+  this.currentUserSubject = new BehaviorSubject<User>(
+    JSON.parse(localStorage.getItem('currentUser') || '{}')
+  );
   this.currentUser = this.currentUserSubject.asObservable();
-}
-
-setUserInLocalStorage(user: any) {
-  if (isPlatformBrowser(this.platformId)) {
-    localStorage.setItem('currentUser', JSON.stringify(user));
   }
-}
 
-getUserFromLocalStorage() {
-  if (isPlatformBrowser(this.platformId)) {
-    const user = localStorage.getItem('currentUser');
-    return user ? JSON.parse(user) : null;
+  private getWindow(): Window | null {
+    return isDevMode() && typeof window === 'undefined' ? null : window;
   }
-  return null;
-}
 
- public login(username: string, password: string) {
-  const headers = getHeaders()
-	return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ email: username, password: password }, {headers})
-		.pipe(map((user) => { localStorage.setItem("currentUser", JSON.stringify(user));
-				this.currentUserSubject.next(user);
-				return user;
-			})
-		);
-}  
+
+  public login(email: string, password: string) {
+    const headers = getHeaders();
+    return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ email: email, password: password }, {headers})
+      .pipe(map((user) => { localStorage.setItem("currentUser", JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          return user;
+        })
+      );
+  }  
 
 /* login(email: string, password: string): Observable<any> {
   const headers = getHeaders()

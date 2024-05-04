@@ -78,51 +78,38 @@ export class LoginComponent implements OnInit {
     this.submittedLogin = false;
   
   
-      this.authService.login(user.email, user.password).subscribe({
-
-        next: (res) => {
-          console.log("log res", res);
+      this.authService.login(user.email, user.password).subscribe(
+        (res) => {
           if (res) {
-            const currentUser = this.authService.currentUserValue;
-            localStorage.setItem('currentUser', res.token);
-            console.log(currentUser);
-            if (res && res.token) {
-              this.router.navigate(['/home']);
+            
+            const token = localStorage.setItem("currentUser", JSON.stringify(res))
+            if (token!) {
+              this.router.navigate(["/home"]);
             }
           } else {
             this.messageError.set("Inicio de sesión inválido");
           }
         },
-        error: (error) => {
-          this.isLoading = false;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (error) => {
+          this.messageError.set('Error al acceder, verifica tus credenciales');
           this.submittedLogin = false;
-        },
-      });
+          this.isLoading = false;
+        }
+       );
     }
+
   
-
-setItemInLocalStorage(key: string, value: string) {
-  const windowObject = this.getWindow();
-  if (windowObject && windowObject.localStorage) {
-    windowObject.localStorage.setItem(key, value);
-  }
-}
-getItemInLocalStorage(value: string) {
-  const windowObject = this.getWindow();
-  if (windowObject && windowObject.localStorage) {
-    windowObject.localStorage.getItem(value);
-  }
-}
-
-getWindow(): Window | null {
-  return isDevMode() && typeof window === 'undefined' ? null : window;
-}
-  private loginUser() {
-    return {
-        email: this.loginForm.controls['email'].value,
-        password: this.loginForm.controls['password'].value
+    setItemInLocalStorage(key: string, value: string) {
+      const windowObject = this.getWindow();
+      if (windowObject && windowObject.localStorage) {
+        windowObject.localStorage.setItem(key, value);
+      }
     }
-  }
+    
+    getWindow(): Window | null {
+      return isDevMode() && typeof window === 'undefined' ? null : window;
+    }
 
   
   private sendNotification(title: string = 'Hub de seguridad', message: string, type: string): void {
