@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
     }
   
     if (this.loginForm.invalid) {
-      console.log(this.loginForm);
       return;
     }
   
@@ -68,7 +67,7 @@ export class LoginComponent implements OnInit {
     console.log(user);
     this.isLoading = true;
     this.submittedLogin = false;
-    this.authService.login(user).subscribe(
+    this.authService.login(user.email, user.password).subscribe(
       {
         next: (res) => {
           console.log("log res" + res);

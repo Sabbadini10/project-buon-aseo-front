@@ -26,8 +26,9 @@ private getWindow(): Window | null {
   return isDevMode() && typeof window === 'undefined' ? null : window;
 }
 
-public login(users: any) {
-	return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ users })
+public login(email: string, password: string) {
+  const headers = getHeaders()
+	return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ email, password}, {headers})
 		.pipe(map((user) => { localStorage.setItem("currentUser", JSON.stringify(user));
 				this.currentUserSubject.next(user);
 				return user;
