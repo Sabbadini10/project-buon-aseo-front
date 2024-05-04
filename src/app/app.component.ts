@@ -8,6 +8,8 @@ import { AuthService } from './services/auth/auth.service';
 import { JwtInterceptor } from './core/interceptor/jwt.interceptor';
 import { fakeBackendProvider } from './core/interceptor/fake.backend.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { provideClientHydration } from '@angular/platform-browser';
+import { getHeaders } from './utils/header';
 
 
 @Component({

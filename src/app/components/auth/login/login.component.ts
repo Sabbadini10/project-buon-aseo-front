@@ -1,10 +1,13 @@
-import { Component, inject, isDevMode, OnInit, signal } from '@angular/core';
+import { Component, Inject, inject, isDevMode, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { catchError, map, Subscription, tap } from 'rxjs';
 import { ErrorInterceptor } from '../../../core/interceptor/error.interceptor';
+import { isPlatformBrowser } from '@angular/common';
+import { JwtInterceptor } from '../../../core/interceptor/jwt.interceptor';
+import { fakeBackendProvider } from '../../../core/interceptor/fake.backend.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +15,11 @@ import { ErrorInterceptor } from '../../../core/interceptor/error.interceptor';
   imports: [RouterModule, ReactiveFormsModule, FormsModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService, HttpClient]
+  providers: [AuthService, HttpClient,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    fakeBackendProvider,
+  ]
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
@@ -29,7 +36,9 @@ export class LoginComponent implements OnInit {
   public submittedLogin = false;
   public fieldTextType?: boolean = false;
   currentUser = signal('');
-  constructor() { 
+
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', Validators.required]
@@ -55,7 +64,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.controls['email'].value === '' || this.loginForm.controls['password'].value === '') {
       this.submittedLogin = true;
     }
-  
     if (this.loginForm.invalid) {
       console.log(this.loginForm);
       return;
@@ -64,22 +72,25 @@ export class LoginComponent implements OnInit {
     const user = {
       email: this.loginForm.controls['email'].value,
       password: this.loginForm.controls['password'].value
-  }
+    };
     console.log(user);
     this.isLoading = true;
     this.submittedLogin = false;
-    this.authService.login(user).subscribe(
-      {
+  
+  
+      this.authService.login(user.email, user.password).subscribe({
+
         next: (res) => {
-          console.log("log res" + res);
+          console.log("log res", res);
           if (res) {
-            const token = this.authService.currentUserValue.token;
-            console.log("token: " + token);
-            if (token) {
+            const currentUser = this.authService.currentUserValue;
+            localStorage.setItem('currentUser', res.token);
+            console.log(currentUser);
+            if (res && res.token) {
               this.router.navigate(['/home']);
             }
           } else {
-            this.messageError.set("Inicio de sesión inválido")
+            this.messageError.set("Inicio de sesión inválido");
           }
         },
         error: (error) => {
@@ -87,7 +98,8 @@ export class LoginComponent implements OnInit {
           this.submittedLogin = false;
         },
       });
-}
+    }
+  
 
 setItemInLocalStorage(key: string, value: string) {
   const windowObject = this.getWindow();
