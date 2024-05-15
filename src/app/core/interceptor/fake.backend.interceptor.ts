@@ -19,6 +19,7 @@ const users: User[] = [
     name: 'Sarah',
     lastName: 'Smith',
     token: 'admin-token',
+    id_type_user: '',
     email: 'sally@software.com',
   },
 ];

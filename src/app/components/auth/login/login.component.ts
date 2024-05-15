@@ -9,6 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { JwtInterceptor } from '../../../core/interceptor/jwt.interceptor';
 import { fakeBackendProvider } from '../../../core/interceptor/fake.backend.interceptor';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -65,7 +66,6 @@ export class LoginComponent implements OnInit {
       this.submittedLogin = true;
     }
     if (this.loginForm.invalid) {
-      console.log(this.loginForm);
       return;
     }
   
@@ -76,27 +76,26 @@ export class LoginComponent implements OnInit {
     console.log(user);
     this.isLoading = true;
     this.submittedLogin = false;
-  
-  
-      this.authService.login(user.email, user.password).subscribe(
-        (res) => {
+    this.authService.login(user.email, user.password).subscribe({
+        next: (res: any) => {
           if (res) {
-            
-            const token = localStorage.setItem("currentUser", JSON.stringify(res))
-            if (token!) {
-              this.router.navigate(["/home"]);
+            const user = this.authService.currentUserValue;
+           /*  console.log("token: " + JSON.stringify(user)); */
+            if (user.role === 'user') {
+              this.router.navigate(['/home']);
+            } else {
+              this.router.navigate(['/dashboard']);
             }
           } else {
             this.messageError.set("Inicio de sesión inválido");
           }
         },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        (error) => {
-          this.messageError.set('Error al acceder, verifica tus credenciales');
+        error: (error) => {
+          this.isLoading = false;
           this.submittedLogin = false;
           this.isLoading = false;
         }
-       );
+  });
     }
 
   
