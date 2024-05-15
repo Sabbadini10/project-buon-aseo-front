@@ -31,42 +31,11 @@ constructor() {
     return isDevMode() && typeof window === 'undefined' ? null : window;
   }
 
-<<<<<<< HEAD
-
-  public login(email: string, password: string) {
-    const headers = getHeaders();
-    return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ email: email, password: password }, {headers})
-      .pipe(map((user) => { localStorage.setItem("currentUser", JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
-        })
-      );
-  }  
-
-/* login(email: string, password: string): Observable<any> {
-  const headers = getHeaders()
-  return this._http.post<any>(`${environment.apiUrl}/auth/signin`, { email, password }, {headers});
-} */
-/* 
-login(username: string, password: string) {
-  const headers = getHeaders()
-  return this._http.post<any>(`${environment.apiUrl}/auth/signin`, { email: username, password: password }, {headers})
-    .pipe(
-      map((user) => {
-        const userss = localStorage.setItem("currentUser", JSON.stringify(user))        
-        console.log(userss);
-        this.currentUserSubject.next(user);
-        return user;
-      })
-    );
-} */
-=======
 public login(email: string, password: string) {
   const headers = getHeaders()
 	return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ email, password}, {headers})
   .pipe(map(currentUser => this.setUser(currentUser)));
 } 
->>>>>>> develop
 
 public get currentUserValue(): any {
   return this.currentUserSubject.value;
