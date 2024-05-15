@@ -6,6 +6,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHandler } from '@a
 import { catchError, map, Subscription, tap } from 'rxjs';
 import { ErrorInterceptor } from '../../../core/interceptor/error.interceptor';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -70,12 +71,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(user.email, user.password).subscribe(
       {
         next: (res) => {
-          console.log("log res" + res);
           if (res) {
-            const token = this.authService.currentUserValue.token;
-            console.log("token: " + token);
-            if (token) {
+            const user = this.authService.currentUserValue;
+           /*  console.log("token: " + JSON.stringify(user)); */
+            if (user.role === 'user') {
               this.router.navigate(['/home']);
+            } else {
+              this.router.navigate(['/dashboard']);
             }
           } else {
             this.messageError.set("Inicio de sesión inválido")

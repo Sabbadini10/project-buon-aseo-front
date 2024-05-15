@@ -16,8 +16,9 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 constructor() {
+  const users = localStorage.getItem('currentUser') || '{}'
   this.currentUserSubject = new BehaviorSubject<User>(
-    JSON.parse(localStorage.getItem('currentUser') || '{}')
+    JSON.parse(users)
   );
   this.currentUser = this.currentUserSubject.asObservable();
 }
@@ -29,11 +30,7 @@ private getWindow(): Window | null {
 public login(email: string, password: string) {
   const headers = getHeaders()
 	return this._http.post<any>(`${environment.apiUrl}/auth/signin`,{ email, password}, {headers})
-		.pipe(map((user) => { localStorage.setItem("currentUser", JSON.stringify(user));
-				this.currentUserSubject.next(user);
-				return user;
-			})
-		);
+  .pipe(map(currentUser => this.setUser(currentUser)));
 } 
 
 public get currentUserValue(): any {
@@ -49,4 +46,10 @@ logout() {
   this.currentUserSubject.next(this.currentUserValue);
   return of({ success: false });
 } 
+
+private setUser(user: User) {
+  localStorage.setItem('currentUser', JSON.stringify(user));
+  this.currentUserSubject.next(user);
+  return user;
+}
 }
