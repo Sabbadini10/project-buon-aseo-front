@@ -9,8 +9,6 @@ import { JwtInterceptor } from './core/interceptor/jwt.interceptor';
 import { fakeBackendProvider } from './core/interceptor/fake.backend.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HeaderComponent } from './shared/header/header.component';
-import { WebStorageModule } from 'ngx-store';
-import { Footer } from 'primeng/api';
 import { FooterComponent } from './shared/footer/footer.component';
 
 

@@ -5,8 +5,7 @@ import { RegisterComponent } from './register/register.component';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css'],
+  template: '',
 })
 export class AuthComponent implements OnInit {
 

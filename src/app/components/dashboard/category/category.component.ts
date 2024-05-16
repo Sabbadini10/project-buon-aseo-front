@@ -5,15 +5,13 @@ import { GraficasCategoriasComponent } from '../graficasCategorias/graficasCateg
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports:[DashboardHeaderComponent,GraficasCategoriasComponent],
+  imports: [DashboardHeaderComponent, GraficasCategoriasComponent],
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
-  title: string = "Categorias"
-  constructor() { }
+  title: string = 'Categorias';
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

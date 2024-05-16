@@ -10,16 +10,16 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
   standalone: true,
   imports: [NgxChartsModule, LoadingComponent],
   templateUrl: './graficasUsuarios.component.html',
-  styleUrls: ['./graficasUsuarios.component.css']
+  styleUrls: ['./graficasUsuarios.component.css'],
 })
 export class GraficasUsuariosComponent implements OnInit {
   multi: any[] = [];
   view: any;
-   users: User[] = [];
+  users: User[] = [];
   /* users: any[] = []; */
   usersService = inject(UsersService);
-  userTypes: UserType[] = []; 
- /*  userTypes: any[] = []; */
+  userTypes: UserType[] = [];
+  /*  userTypes: any[] = []; */
   result: any;
   cardColor: string = '#232837';
   colorScheme: Color = {
@@ -28,49 +28,50 @@ export class GraficasUsuariosComponent implements OnInit {
     group: ScaleType.Ordinal,
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
   };
-  constructor() { 
+  constructor() {
     this.usersService.getUsers().subscribe({
       next: (data: any) => {
         this.users = data;
-        console.log(this.users)
+        console.log(this.users);
       },
       error: (error: any) => {
         console.log('Error:', error);
-      }
+      },
     });
 
     this.usersService.getUserTypes().subscribe({
       next: (data: any) => {
         this.userTypes = data;
         setTimeout(() => {
-          this.result = this.userTypes.map(value => {
-            console.log(value)
-            const count = this.users.filter(user => user.id_type_user == value._id).length; 
-            console.log(count)
-            const nameRol = value.name == 'admin' ? 'Administrador' : value.name && value.name == 'user' ? 'Usuarios' : value.name
-            return { name: nameRol, value: count }; 
+          this.result = this.userTypes.map((value) => {
+            console.log(value);
+            const count = this.users.filter(
+              (user) => user.id_type_user == value._id
+            ).length;
+            console.log(count);
+            const nameRol =
+              value.name == 'admin'
+                ? 'Administrador'
+                : value.name && value.name == 'user'
+                ? 'Usuarios'
+                : value.name;
+            return { name: nameRol, value: count };
           });
-          console.log(this.result)
-        }, 2000)
-       
+          console.log(this.result);
+        }, 2000);
       },
       error: (error: any) => {
         console.log('Error:', error);
-      }
+      },
     });
 
     const width = 400;
     const height = 200;
     this.view = [width, height];
-    
   }
 
-  ngOnInit() {
-
-   
-  }
+  ngOnInit() {}
   onSelect(event: any) {
     console.log(event);
   }
-
 }
