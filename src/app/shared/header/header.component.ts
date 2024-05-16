@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
   currentRoute: string;
   currenteUser = signal('');
   headerGuard: any;
+  panelMobile: boolean = false;
+  panelHeaderMobile: boolean = false;
+  categoryMobile: boolean = false;
+  productMobile: boolean = false;
   public menuItems = routes
     .map((route) => route ?? [])
     .flat()
@@ -75,6 +79,21 @@ export class HeaderComponent implements OnInit {
     this.panelSetting = !this.panelSetting;
     this.panelCategory = false;
     this.panelProduct = false;
+  }
+
+  clickToggleMobile() {
+    this.panelHeaderMobile = !this.panelHeaderMobile;
+    console.log(this.panelHeaderMobile);
+  }
+
+  clickPanelCategoryMobile(){
+    this.categoryMobile = !this.categoryMobile
+    this.productMobile = false;
+  }
+
+  clickPanelProductMobile(){
+    this.productMobile = !this.productMobile
+    this.categoryMobile = false;
   }
 
   clickLogout() {
