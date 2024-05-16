@@ -7,27 +7,26 @@ import { AuthService } from '../../../services/auth/auth.service';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './dashboardHeader.component.html',
-  styleUrls: ['./dashboardHeader.component.css']
+  styleUrls: ['./dashboardHeader.component.css'],
 })
 export class DashboardHeaderComponent implements OnInit {
   @Input() title: string = '';
   toggleButton: boolean = false;
-  currenteUser = signal('')
-  authService = inject(AuthService)
-  private router = inject(Router)
+  currenteUser = signal('');
+  authService = inject(AuthService);
+  private router = inject(Router);
   constructor() {
     this.currenteUser.set(this.authService.currentUserValue.name);
-    console.log(this.currenteUser())
-   }
-
-  ngOnInit() {
+    console.log(this.currenteUser());
   }
 
-  clickToggle(){
-    this.toggleButton = !this.toggleButton
+  ngOnInit() {}
+
+  clickToggle() {
+    this.toggleButton = !this.toggleButton;
   }
-  clickLogout(){
+  clickLogout() {
     this.authService.logout();
-    this.router.navigateByUrl('/auth/signin')
+    this.router.navigateByUrl('/auth/signin');
   }
 }

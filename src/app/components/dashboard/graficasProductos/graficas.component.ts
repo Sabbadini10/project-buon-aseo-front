@@ -37,13 +37,9 @@ export class GraficasComponent {
     this.productService.getProducts(1, 5).subscribe({
       next: (data) => {
         this.products = data.products;
-        console.log(this.products);
       },
       error: (error) => {
-        console.log('Error:', error);
-      },
-      complete: () => {
-        console.log('Data retrieval completed');
+        console.error('Error:', error);
       },
     });
     const width = 1000;

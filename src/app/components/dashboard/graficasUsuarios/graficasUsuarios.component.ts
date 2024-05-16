@@ -16,10 +16,8 @@ export class GraficasUsuariosComponent implements OnInit {
   multi: any[] = [];
   view: any;
   users: User[] = [];
-  /* users: any[] = []; */
   usersService = inject(UsersService);
   userTypes: UserType[] = [];
-  /*  userTypes: any[] = []; */
   result: any;
   cardColor: string = '#232837';
   colorScheme: Color = {
@@ -32,10 +30,9 @@ export class GraficasUsuariosComponent implements OnInit {
     this.usersService.getUsers().subscribe({
       next: (data: any) => {
         this.users = data;
-        console.log(this.users);
       },
       error: (error: any) => {
-        console.log('Error:', error);
+        console.error('Error:', error);
       },
     });
 
@@ -44,11 +41,9 @@ export class GraficasUsuariosComponent implements OnInit {
         this.userTypes = data;
         setTimeout(() => {
           this.result = this.userTypes.map((value) => {
-            console.log(value);
             const count = this.users.filter(
               (user) => user.id_type_user == value._id
             ).length;
-            console.log(count);
             const nameRol =
               value.name == 'admin'
                 ? 'Administrador'
@@ -57,11 +52,10 @@ export class GraficasUsuariosComponent implements OnInit {
                 : value.name;
             return { name: nameRol, value: count };
           });
-          console.log(this.result);
         }, 2000);
       },
       error: (error: any) => {
-        console.log('Error:', error);
+        console.error('Error:', error);
       },
     });
 

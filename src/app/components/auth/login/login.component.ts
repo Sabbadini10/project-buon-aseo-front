@@ -1,12 +1,4 @@
-import {
-  Component,
-  Inject,
-  inject,
-  isDevMode,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-} from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -21,15 +13,21 @@ import {
   HttpClient,
   HttpClientModule,
 } from '@angular/common/http';
-import { Subscription, tap } from 'rxjs';
 import { ErrorInterceptor } from '../../../core/interceptor/error.interceptor';
 import { JwtInterceptor } from '../../../core/interceptor/jwt.interceptor';
 import { fakeBackendProvider } from '../../../core/interceptor/fake.backend.interceptor';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, FormsModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [
@@ -51,12 +49,11 @@ export class LoginComponent implements OnInit {
   public submittedError = signal(false);
   public submittedExito = signal(false);
   messageError = signal('');
-  private subs: Array<Subscription> = [];
   public submittedLogin = false;
   public fieldTextType?: boolean = false;
   currentUser = signal('');
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor() {
     this.loginForm = this.formBuilder.group({
       email: [
         '',
@@ -72,7 +69,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   clickTogglePassword() {
-    /* this.passwordBoolean = !this.passwordBoolean; */
     this.passwordBoolean.update((value) => (value = !value));
     if (!this.passwordBoolean()) {
       this.togglepassword.set('password');
@@ -97,14 +93,12 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.controls['email'].value,
       password: this.loginForm.controls['password'].value,
     };
-    console.log(user);
     this.isLoading = true;
     this.submittedLogin = false;
     this.authService.login(user.email, user.password).subscribe({
       next: (res: any) => {
         if (res) {
           const user = this.authService.currentUserValue;
-          /*  console.log("token: " + JSON.stringify(user)); */
           if (user.role === 'user') {
             this.router.navigate(['/home']);
           } else {
@@ -120,35 +114,5 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       },
     });
-  }
-
-  setItemInLocalStorage(key: string, value: string) {
-    const windowObject = this.getWindow();
-    if (windowObject && windowObject.localStorage) {
-      windowObject.localStorage.setItem(key, value);
-    }
-  }
-
-  getWindow(): Window | null {
-    return isDevMode() && typeof window === 'undefined' ? null : window;
-  }
-
-  private sendNotification(
-    title: string = 'Hub de seguridad',
-    message: string,
-    type: string
-  ): void {
-    if (message == 'Contraseña incorrecta.') {
-      this.submittedError.set(true);
-      this.messageError.set('Credenciales invalidas');
-    } else {
-      this.submittedError.set(true);
-      this.messageError.set(message);
-    }
-
-    setTimeout(() => {
-      this.submittedError.set(false);
-      this.messageError.set('');
-    }, 2500);
   }
 }

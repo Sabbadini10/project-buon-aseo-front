@@ -22,30 +22,27 @@ export class CardComponent implements OnInit {
     this.productService.getProducts(this.page(), this.limit()).subscribe({
       next: (res) => {
         this.countProduct.set(res.total);
-        console.log(res);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
       },
     });
 
     this.categoryService.getCategory().subscribe({
       next: (res) => {
         this.countCategory.set(res.length);
-        console.log(res);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
       },
     });
 
     this.usersService.getUsers().subscribe({
       next: (res) => {
         this.countUsers.set(res.length);
-        console.log(res);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
       },
     });
   }

@@ -3,7 +3,6 @@ import { routes } from '../../app.routes';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
-import { Observable } from 'rxjs';
 import { AuthGuard } from '../../core/guards/auth.guard';
 
 @Component({
@@ -42,35 +41,20 @@ export class HeaderComponent implements OnInit {
           (this.currentRoute.includes('/signin') &&
             this.currentRoute.includes('/signup') &&
             this.currentRoute.includes('/password-lost'));
-        /*  if(this.currentRoute.includes('/auth/signin')){
-                this.headerHiddenAuth == true
-              } else if (this.currentRoute.includes('/home')){
-                this.headerHiddenAuth == false
-              } */
       }
     });
-
-    const isAuthSection = this.isInAuthSection(this.menuItems);
-    if (isAuthSection) {
-      /*   console.log('false') */
-    } else {
-      /*  console.log('true') */
-    }
   }
 
   isInAuthSection(route: any): boolean {
-    // Verificar si la ruta actual es 'auth' o alguna de sus subrutas
     if (route.path === 'auth') {
       return true;
     } else if (route.children) {
-      // Verificar si alguna de las subrutas es 'auth'
       for (const child of route.children) {
         if (child.path === 'auth') {
           return true;
         }
       }
     }
-    // La ruta no está en 'auth' ni en sus hijos
     return false;
   }
 
@@ -79,21 +63,18 @@ export class HeaderComponent implements OnInit {
     this.panelCategory = !this.panelCategory;
     this.panelProduct = false;
     this.panelSetting = false;
-    console.log(this.panelCategory);
   }
 
   clickToggleProduct() {
     this.panelProduct = !this.panelProduct;
     this.panelCategory = false;
     this.panelSetting = false;
-    console.log(this.panelProduct);
   }
 
   clickToggleSetting() {
     this.panelSetting = !this.panelSetting;
     this.panelCategory = false;
     this.panelProduct = false;
-    console.log(this.panelSetting);
   }
 
   clickLogout() {

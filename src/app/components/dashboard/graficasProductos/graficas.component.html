@@ -1,6 +1,6 @@
 <div class="flex justify-center">
   @defer (on timer(5s)) {
-    <ngx-charts-bar-vertical
+  <ngx-charts-bar-vertical
     [view]="view"
     [scheme]="colorScheme"
     [results]="products"
@@ -12,10 +12,10 @@
     [showYAxisLabel]="showYAxisLabel"
     [xAxisLabel]="xAxisLabel"
     [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
+    (select)="onSelect($event)"
+  >
   </ngx-charts-bar-vertical>
   } @placeholder {
-    <app-loading/>
+  <app-loading />
   }
- 
 </div>

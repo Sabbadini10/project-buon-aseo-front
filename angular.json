@@ -52,12 +52,27 @@
                   "maximumError": "15kb"
                 }
               ],
+              "optimization": true,
               "outputHashing": "all"
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+                "fileReplacements": [
+                  {
+                    "replace": "src/environment/enviroments.production.ts",
+                    "with": "src/environment/environments.developer.ts"
+                  }
+                ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environment/environments.developer.ts",
+                  "with": "src/environment/enviroments.production.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

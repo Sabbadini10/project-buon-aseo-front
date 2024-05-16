@@ -1,12 +1,12 @@
- @defer(on timer(5s)){
-  <ngx-charts-number-card
+@defer(on timer(5s)){
+<ngx-charts-number-card
   [view]="view"
   [scheme]="colorScheme"
   [results]="result"
   [cardColor]="cardColor"
-  (select)="onSelect($event)">
-</ngx-charts-number-card> 
- } @placeholder {
- <app-loading/>
- }
- 
+  (select)="onSelect($event)"
+>
+</ngx-charts-number-card>
+} @placeholder {
+<app-loading />
+}

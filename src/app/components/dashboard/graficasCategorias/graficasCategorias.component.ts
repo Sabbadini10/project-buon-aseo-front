@@ -40,13 +40,9 @@ export class GraficasCategoriasComponent implements OnInit {
     this.categoryService.getCategory().subscribe({
       next: (data: any) => {
         this.category = data;
-        console.log(this.category);
       },
       error: (error: any) => {
-        console.log('Error:', error);
-      },
-      complete: () => {
-        console.log('Data retrieval completed');
+        console.error('Error:', error);
       },
     });
 
@@ -54,10 +50,6 @@ export class GraficasCategoriasComponent implements OnInit {
     const height = 400;
     this.view = [width, height];
   }
-
-  /*  onSelect(event: any) {
-    console.log(event);
-  } */
   onSelect(data: any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }

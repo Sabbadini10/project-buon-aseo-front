@@ -10,28 +10,20 @@ import { CarrouselComponent } from './carrousel/carrousel.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports:[
-    BrandsComponent, 
-    PayMethodComponent, 
-    ProductOfertComponent, 
+  imports: [
+    BrandsComponent,
+    PayMethodComponent,
+    ProductOfertComponent,
     ProductSalesComponent,
     BannerComponent,
     CarrouselComponent,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  constructor() {}
 
-
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-
- 
-
+  ngOnInit() {}
 }

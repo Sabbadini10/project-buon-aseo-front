@@ -1,7 +1,6 @@
-import { inject, Injectable, isDevMode, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { getHeaders } from '../../utils/header';
 import { User } from '../../interfaces/User';
@@ -12,7 +11,6 @@ import { User } from '../../interfaces/User';
 export class AuthService {
   private BASE_URL = signal(environment.apiUrl);
   private _http = inject(HttpClient);
-  private router = inject(Router);
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -22,15 +20,11 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  private getWindow(): Window | null {
-    return isDevMode() && typeof window === 'undefined' ? null : window;
-  }
-
   public login(email: string, password: string) {
     const headers = getHeaders();
     return this._http
       .post<any>(
-        `${environment.apiUrl}/auth/signin`,
+        `${this.BASE_URL()}/auth/signin`,
         { email, password },
         { headers }
       )

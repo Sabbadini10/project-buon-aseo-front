@@ -16,7 +16,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   clickTogglePassword() {
-    /* this.passwordBoolean = !this.passwordBoolean; */
     this.passwordBoolean.update((value) => (value = !value));
     if (!this.passwordBoolean()) {
       this.togglepassword.set('password');

@@ -32,8 +32,6 @@ export class FooterComponent implements OnInit {
           (this.currentRoute.includes('/signin') &&
             this.currentRoute.includes('/signup') &&
             this.currentRoute.includes('/password-lost'));
-        console.log('¿No es una ruta de autenticación?', this.headerHiddenAuth);
-        console.log(event);
       }
     });
   }
