@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { GraficasComponent } from './graficas.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('GraficasComponent', () => {
   let component: GraficasComponent;
@@ -11,7 +13,7 @@ describe('GraficasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraficasComponent ]
+      imports: [ GraficasComponent, HttpClientModule, RouterTestingModule.withRoutes([{ path: '', component: GraficasComponent}]) ],
     })
     .compileComponents();
   }));

@@ -18,10 +18,11 @@ export class DashboardHeaderComponent implements OnInit {
   private router = inject(Router);
   constructor() {
     this.currenteUser.set(this.authService.currentUserValue.name);
-    console.log(this.currenteUser());
-  }
 
+  }
   ngOnInit() {}
+  
+
 
   clickToggle() {
     this.toggleButton = !this.toggleButton;

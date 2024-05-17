@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { PasswordLostComponent } from './password-lost.component';
+import {  RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PasswordLostComponent', () => {
   let component: PasswordLostComponent;
@@ -11,7 +13,7 @@ describe('PasswordLostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordLostComponent ]
+      imports: [ PasswordLostComponent, RouterModule, RouterTestingModule.withRoutes([{ path: '', component: PasswordLostComponent}]) ],
     })
     .compileComponents();
   }));

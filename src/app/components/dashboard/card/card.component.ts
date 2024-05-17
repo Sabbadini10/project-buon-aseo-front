@@ -2,10 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../../services/products/product.service';
 import { CategoryService } from '../../../services/category/category.service';
 import { UsersService } from '../../../services/users/users.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-card',
   standalone: true,
+  imports:[HttpClientModule],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
 })

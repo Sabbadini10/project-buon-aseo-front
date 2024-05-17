@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GraficasComponent } from '../graficasProductos/graficas.component';
 import { RouterModule } from '@angular/router';
 import { DashboardHeaderComponent } from '../dashboardHeader/dashboardHeader.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-product',
@@ -9,8 +11,10 @@ import { DashboardHeaderComponent } from '../dashboardHeader/dashboardHeader.com
   imports:[
     GraficasComponent, 
     RouterModule,
-    DashboardHeaderComponent
+    DashboardHeaderComponent,
+    HttpClientModule
   ],
+  providers:[AuthService],
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })

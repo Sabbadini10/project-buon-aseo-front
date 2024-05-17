@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import {
   HTTP_INTERCEPTORS,
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   public submittedLogin = false;
   public fieldTextType?: boolean = false;
   currentUser = signal('');
-
+  private activatedRoute =  inject(ActivatedRoute)
   constructor() {
     this.loginForm = this.formBuilder.group({
       email: [

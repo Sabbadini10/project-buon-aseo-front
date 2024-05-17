@@ -11,7 +11,7 @@ describe('BannerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BannerComponent ]
+      imports: [ BannerComponent ],
     })
     .compileComponents();
   }));

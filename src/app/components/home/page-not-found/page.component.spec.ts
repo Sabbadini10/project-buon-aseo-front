@@ -11,7 +11,7 @@ describe('PageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageComponent ]
+      imports: [ PageComponent ]
     })
     .compileComponents();
   }));

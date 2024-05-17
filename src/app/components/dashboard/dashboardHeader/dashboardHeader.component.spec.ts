@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { DashboardHeaderComponent } from './dashboardHeader.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DashboardHeaderComponent', () => {
   let component: DashboardHeaderComponent;
@@ -11,7 +13,7 @@ describe('DashboardHeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardHeaderComponent ]
+      imports: [ DashboardHeaderComponent, HttpClientModule, RouterTestingModule.withRoutes([{ path: '', component: DashboardHeaderComponent}]) ]
     })
     .compileComponents();
   }));

@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { GraficasCategoriasComponent } from './graficasCategorias.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('GraficasCategoriasComponent', () => {
   let component: GraficasCategoriasComponent;
@@ -11,7 +12,7 @@ describe('GraficasCategoriasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraficasCategoriasComponent ]
+      imports: [ GraficasCategoriasComponent, HttpClientModule ],
     })
     .compileComponents();
   }));

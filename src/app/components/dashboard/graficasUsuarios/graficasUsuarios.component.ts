@@ -4,11 +4,13 @@ import { User, UserType } from '../../../interfaces/User';
 import { Color, NgxChartsModule } from '@swimlane/ngx-charts';
 import { ScaleType } from '@swimlane/ngx-charts';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-graficasUsuarios',
   standalone: true,
-  imports: [NgxChartsModule, LoadingComponent],
+  imports: [NgxChartsModule, LoadingComponent, HttpClientModule],
+  providers: [UsersService],
   templateUrl: './graficasUsuarios.component.html',
   styleUrls: ['./graficasUsuarios.component.css'],
 })

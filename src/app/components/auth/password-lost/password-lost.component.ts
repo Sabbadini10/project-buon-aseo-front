@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-password-lost',
@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./password-lost.component.css']
 })
 export class PasswordLostComponent implements OnInit {
-
+  private activatedRoute =  inject(ActivatedRoute)
   constructor() { }
 
   ngOnInit() {

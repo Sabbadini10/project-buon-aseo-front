@@ -11,7 +11,7 @@ describe('PayMethodComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PayMethodComponent ]
+      imports: [ PayMethodComponent ]
     })
     .compileComponents();
   }));

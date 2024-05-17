@@ -11,7 +11,7 @@ describe('GraficasUsuariosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraficasUsuariosComponent ]
+      imports: [ GraficasUsuariosComponent ],
     })
     .compileComponents();
   }));

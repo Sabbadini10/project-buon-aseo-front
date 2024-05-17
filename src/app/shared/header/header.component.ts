@@ -4,14 +4,15 @@ import { Event, NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [CommonModule],
-  providers: [AuthGuard],
+  imports: [CommonModule, HttpClientModule],
+  providers: [AuthGuard, AuthService],
 })
 export class HeaderComponent implements OnInit {
   panelCategory: boolean = false;

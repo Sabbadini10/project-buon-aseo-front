@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CategoryComponent } from './category.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CategoryComponent', () => {
   let component: CategoryComponent;
@@ -11,7 +13,7 @@ describe('CategoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryComponent ]
+      imports:[CategoryComponent, HttpClientModule, RouterTestingModule.withRoutes([{ path: '', component: CategoryComponent}]) ],
     })
     .compileComponents();
   }));

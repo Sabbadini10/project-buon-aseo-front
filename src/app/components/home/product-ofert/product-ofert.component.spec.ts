@@ -11,7 +11,7 @@ describe('ProductOfertComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductOfertComponent ]
+      imports: [ ProductOfertComponent ],
     })
     .compileComponents();
   }));

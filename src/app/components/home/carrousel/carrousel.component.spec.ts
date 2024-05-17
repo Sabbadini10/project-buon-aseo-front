@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CarrouselComponent } from './carrousel.component';
+import { RouterModule } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('CarrouselComponent', () => {
   let component: CarrouselComponent;
@@ -11,7 +13,7 @@ describe('CarrouselComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CarrouselComponent ]
+      imports: [ CarrouselComponent, RouterModule, HttpClientModule ],
     })
     .compileComponents();
   }));

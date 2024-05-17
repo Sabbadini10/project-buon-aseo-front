@@ -11,7 +11,7 @@ describe('AboutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AboutComponent ]
+      imports: [ AboutComponent ]
     })
     .compileComponents();
   }));
