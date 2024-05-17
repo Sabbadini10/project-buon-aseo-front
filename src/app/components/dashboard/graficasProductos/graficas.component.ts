@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ProductService } from '../../../services/products/product.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
@@ -14,9 +14,7 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
 })
 export class GraficasComponent {
   multi: any[] = [];
-  view: any;
   products: Product[] = [];
-
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -25,7 +23,6 @@ export class GraficasComponent {
   xAxisLabel = 'Productos';
   showYAxisLabel = true;
   yAxisLabel = 'Cantidad';
-
   colorScheme: Color = {
     name: 'myScheme',
     selectable: true,
@@ -33,6 +30,7 @@ export class GraficasComponent {
     domain: ['#f00', '#0f0', '#0ff'],
   };
 
+  public view: [number, number];
   constructor(private productService: ProductService) {
     this.productService.getProducts(1, 5).subscribe({
       next: (data) => {
@@ -45,6 +43,26 @@ export class GraficasComponent {
     const width = 1000;
     const height = 400;
     this.view = [width, height];
+    this.actualizarDimensionesGrafico();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.actualizarDimensionesGrafico();
+  }
+
+  private actualizarDimensionesGrafico() {
+    const anchoVentana = window.innerWidth;
+    const altoVentana = window.innerHeight;
+
+    // Ajusta estas constantes según tus necesidades
+    const anchoMaximoGrafico = 1000;
+    const altoMaximoGrafico = 400;
+
+    const anchoGrafico = anchoVentana > anchoMaximoGrafico ? anchoMaximoGrafico : anchoVentana * 0.8;
+    const altoGrafico = altoVentana > altoMaximoGrafico ? altoMaximoGrafico : altoVentana * 0.6;
+
+    this.view = [anchoGrafico, altoGrafico];
   }
 
   onSelect(event: any) {

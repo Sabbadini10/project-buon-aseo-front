@@ -61,7 +61,7 @@
               "sourceMap": true,
                 "fileReplacements": [
                   {
-                    "replace": "src/environment/enviroments.production.ts",
+                    "replace": "src/environment/environments.production.ts",
                     "with": "src/environment/environments.developer.ts"
                   }
                 ]
@@ -70,7 +70,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environment/environments.developer.ts",
-                  "with": "src/environment/enviroments.production.ts"
+                  "with": "src/environment/environments.production.ts"
                 }
               ]
             }

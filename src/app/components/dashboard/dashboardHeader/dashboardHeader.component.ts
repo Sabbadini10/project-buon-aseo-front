@@ -14,6 +14,7 @@ export class DashboardHeaderComponent implements OnInit {
   toggleButton: boolean = false;
   currenteUser = signal('');
   authService = inject(AuthService);
+  panelMobile: boolean = false;
   private router = inject(Router);
   constructor() {
     this.currenteUser.set(this.authService.currentUserValue.name);
@@ -28,5 +29,9 @@ export class DashboardHeaderComponent implements OnInit {
   clickLogout() {
     this.authService.logout();
     this.router.navigateByUrl('/auth/signin');
+  }
+
+  clickButtonMobile(){
+    this.panelMobile = !this.panelMobile;
   }
 }

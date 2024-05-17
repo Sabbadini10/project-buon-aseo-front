@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { UsersService } from '../../../services/users/users.service';
 import { User, UserType } from '../../../interfaces/User';
 import { Color, NgxChartsModule } from '@swimlane/ngx-charts';
@@ -14,7 +14,7 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
 })
 export class GraficasUsuariosComponent implements OnInit {
   multi: any[] = [];
-  view: any;
+  view: [number, number];
   users: User[] = [];
   usersService = inject(UsersService);
   userTypes: UserType[] = [];
@@ -59,9 +59,29 @@ export class GraficasUsuariosComponent implements OnInit {
       },
     });
 
-    const width = 400;
-    const height = 200;
+    const width = 1000;
+    const height = 400;
     this.view = [width, height];
+    this.actualizarDimensionesGrafico();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.actualizarDimensionesGrafico();
+  }
+
+  private actualizarDimensionesGrafico() {
+    const anchoVentana = window.innerWidth;
+    const altoVentana = window.innerHeight;
+
+    // Ajusta estas constantes según tus necesidades
+    const anchoMaximoGrafico = 1000;
+    const altoMaximoGrafico = 400;
+
+    const anchoGrafico = anchoVentana > anchoMaximoGrafico ? anchoMaximoGrafico : anchoVentana * 0.8;
+    const altoGrafico = altoVentana > altoMaximoGrafico ? altoMaximoGrafico : altoVentana * 0.6;
+
+    this.view = [anchoGrafico, altoGrafico];
   }
 
   ngOnInit() {}
