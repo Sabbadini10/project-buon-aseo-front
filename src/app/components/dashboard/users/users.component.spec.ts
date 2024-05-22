@@ -6,6 +6,8 @@ import { DebugElement } from '@angular/core';
 import { UsersComponent } from './users.component';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../../services/auth/auth.service';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -13,7 +15,8 @@ describe('UsersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ UsersComponent, RouterModule, RouterTestingModule.withRoutes([{ path: '', component: UsersComponent}]) ]
+      imports: [ UsersComponent,HttpClientModule, RouterModule, RouterTestingModule.withRoutes([{ path: '', component: UsersComponent}]) ],
+      providers: [AuthService]
     })
     .compileComponents();
   }));

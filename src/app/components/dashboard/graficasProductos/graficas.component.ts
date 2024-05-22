@@ -22,7 +22,7 @@ export class GraficasComponent {
   showXAxisLabel = true;
   xAxisLabel = 'Productos';
   showYAxisLabel = true;
-  yAxisLabel = 'Cantidad';
+  yAxisLabel: string = 'Cantidad';
   colorScheme: Color = {
     name: 'myScheme',
     selectable: true,

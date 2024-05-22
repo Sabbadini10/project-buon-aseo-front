@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from '../services/auth/auth.service';
 import { throwIfAlreadyLoaded } from './guards/module-imports.guard';
+import { ToFixedPipe } from './pipes/toFixed/toFixed.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [	
+      ToFixedPipe
+   ],
   imports: [CommonModule],
   providers: [AuthGuard, AuthService],
 })

@@ -1,6 +1,7 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, output, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
+import { ToggleDashboardHeaderService } from '../../../shared/services/toggleDashboardHeader.service';
 
 @Component({
   selector: 'app-dashboardHeader',
@@ -16,13 +17,16 @@ export class DashboardHeaderComponent implements OnInit {
   authService = inject(AuthService);
   panelMobile: boolean = false;
   private router = inject(Router);
+  private toggleDashboardHeaderService = inject(ToggleDashboardHeaderService)
   constructor() {
     this.currenteUser.set(this.authService.currentUserValue.name);
-
-  }
-  ngOnInit() {}
   
-
+  }
+  ngOnInit() {
+   
+  }
+  
+ 
 
   clickToggle() {
     this.toggleButton = !this.toggleButton;
@@ -34,5 +38,10 @@ export class DashboardHeaderComponent implements OnInit {
 
   clickButtonMobile(){
     this.panelMobile = !this.panelMobile;
+  }
+
+  clickPanelProduct(){
+    this.panelMobile = !this.panelMobile;
+    this.toggleDashboardHeaderService.updateBooleanValue(this.panelMobile);
   }
 }

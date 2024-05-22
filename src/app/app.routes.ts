@@ -9,6 +9,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProductComponent } from './components/dashboard/product/product.component';
 import { CategoryComponent } from './components/dashboard/category/category.component';
 import { UsersComponent } from './components/dashboard/users/users.component';
+import { ListProductComponent } from './components/dashboard/product/crud/listProduct/listProduct.component';
+import { AddProductComponent } from './components/dashboard/product/crud/addProduct/addProduct.component';
+import { EditProductComponent } from './components/dashboard/product/crud/editProduct/editProduct.component';
+import { DeleteProductComponent } from './components/dashboard/product/crud/deleteProduct/deleteProduct.component';
 
 export const routes: Routes = [
   {
@@ -74,6 +78,26 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
+      {
+        path: 'productAdmin/list',
+         title: 'Listado de Productos',
+         component: ListProductComponent,
+           },
+           {
+             path: 'productAdmin/add',
+              title: 'Agregar Producto',
+              component: AddProductComponent,
+                },
+                {
+                 path: 'productAdmin/edit/:id',
+                  title: 'Editar Producto',
+                  component: EditProductComponent,
+                    },
+                    {
+                     path: 'productAdmin/delete/:id',
+                      title: 'Eliminar Producto',
+                      component: DeleteProductComponent,
+                        }
     ],
   },
 

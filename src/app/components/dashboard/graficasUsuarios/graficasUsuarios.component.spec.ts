@@ -1,9 +1,12 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+
 
 import { GraficasUsuariosComponent } from './graficasUsuarios.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UsersService } from '../../../services/users/users.service';
+import { of } from 'rxjs';
+import { User, UserType } from '../../../interfaces/User';
 
 describe('GraficasUsuariosComponent', () => {
   let component: GraficasUsuariosComponent;
@@ -11,7 +14,8 @@ describe('GraficasUsuariosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ GraficasUsuariosComponent ],
+      imports: [ GraficasUsuariosComponent, HttpClientModule],
+      providers: [HttpClient]
     })
     .compileComponents();
   }));
