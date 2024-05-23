@@ -1,5 +1,5 @@
 export interface Product {
-  _id: string;
+  _id?: string;
   description: string;
   discount: number;
   idCode: number;
@@ -9,5 +9,5 @@ export interface Product {
   smell: string;
   stock: number;
   volume: string;
-  value: number;
+  value?: number;
 }

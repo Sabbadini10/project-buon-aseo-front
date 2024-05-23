@@ -91,7 +91,7 @@ export const routes: Routes = [
                 {
                  path: 'productAdmin/edit/:id',
                   title: 'Editar Producto',
-                  component: EditProductComponent,
+                  component: AddProductComponent,
                     },
                     {
                      path: 'productAdmin/delete/:id',

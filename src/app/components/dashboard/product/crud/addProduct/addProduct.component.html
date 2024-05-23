@@ -6,70 +6,117 @@
         <div class="flex justify-center">
           <div class="cards">
             <div class="content">
-              <div
+              <div class="title flex justify-center">
+                <img srcset="../../../../assets/images/logo/heroes_silenciosos.png" width="200" height="100"/>
+              </div>
+              <form [formGroup]="accountForm"
               class="w-full px-3 flex items-center mt-2 mb-5 font-semibold text-gray-500 flex-col">
             <input
-            class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+            class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Nombre"
             type="text"
             name="name"
+            formControlName="name"
           />
           <input
-          class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+          class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
           placeholder="Codigo"
           type="number"
-          name="codigo"
+          name="idCode"
+          formControlName="idCode"
         />
         <input
-        class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+        class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
         placeholder="Precio"
         type="number"
         name="price"
+        formControlName="price"
         /> 
           <input
-            class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+            class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Descuento"
             type="number"
             name="discount"
+            formControlName="discount"
           />
           <input
-            class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+            class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Volumen"
             type="text"
-            name="volumen"
+            name="volume"
+            formControlName="volume"
           />
           <input
-            class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+            class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Stock"
             type="number"
             name="stock"
+            formControlName="stock"
           />
           <input
-            class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+            class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Aroma"
             type="text"
             name="smell"
+            formControlName="smell"
           />
           <input
-            class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+            class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Imagen"
             type="file"
             name="image"
+            formControlName="image"
           />
           <textarea
-            class="w-full p-2 mb-5 resize-none bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+            class="w-full p-2 mb-5 text-gray-100 resize-none bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Descripción"
             type="text"
-            name="smell"
+            name="description"
+            formControlName="description"
           ></textarea>
-          </div>
+            </form>
             </div>
-            <button class="class-button-form cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
-            border-blue-600
-            border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-            active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
-              Crear
-            </button>
+              <button (click)="onSubmit(); clickLoading()" class="class-button-form cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+              border-blue-600
+              border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+              active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+              <div class="flex justify-center items-center"> 
+                @if(isLoading()){
+                  <div>Enviar </div>
+                } @else {
+                  <div class="w-10 h-10 border-8 text-blue-400 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full">
+                    <svg viewBox="0 0 24 24" fill="currentColor" height="1em" width="1em" class="animate-ping">
+                      <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"></path>
+                    </svg>
+                  </div>
+                }
+            </div>
+              </button>
+              @if(!loadMessage()){
+                <div class="bg-green-500  border-green-700 rounded text-gray-100 px-4 py-3 shadow-md" role="alert">
+                  <div class="flex">
+                    <div class="py-1">
+                      <i class="fa-solid fa-circle-check text-gray-100"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold">Producto Creado correctamente</p>
+                    </div>
+                  </div>
+                </div>
+              }
+              @if (!loadMessageError()) {
+                <div class="bg-red-500 border-red-700 rounded text-gray-100 px-4 py-3 shadow-md" role="alert">
+                  <div class="flex">
+                    <div class="py-1">
+                     <i class="fa-solid fa-circle-xmark text-gray-100"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold">Error en formulario, complete los campos correctamente</p>
+                    </div>
+                  </div>
+                </div>
+              }
+            
           </div>
         </div>
     </div>

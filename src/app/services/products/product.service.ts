@@ -27,22 +27,24 @@ export class ProductService {
   }
 
   addProducts(body: Product[]): Observable<any> {
-    return this._http.post(`${this.BASE_URL()}/product/productId`, body);
+    return this._http.post(`${this.BASE_URL()}/product/productAdd`, body);
   }
+
   editProducts(id: string, body: Product[]): Observable<any> {
-    return this._http.post(`${this.BASE_URL()}/product/productId${id}`, body);
+    return this._http.put(`${this.BASE_URL()}/product/productEdit/${id}`, body);
   }
 
   public mapRequiredValues(product: any) {
     const productInfo: any = {};
     productInfo.name = product.name;
-    productInfo.lastName = product.price;
-    productInfo.city = product.city;
-    productInfo.country = product.country;
-    productInfo.birthday = product.birthday;
-    productInfo.email = product.email;
-    productInfo.phoneNumber = product.phoneNumber;
-    productInfo.roles = product.roles;
+    productInfo.price= product.price;
+    productInfo.idCode = product.idCode;
+    productInfo.discount = product.discount;
+    productInfo.smell = product.smell;
+    productInfo.volume = product.volume;
+    productInfo.stock = product.stock;
+    productInfo.description = product.description;
+    productInfo.image = product.image;
 
     return productInfo;
   }

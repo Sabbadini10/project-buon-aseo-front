@@ -109,6 +109,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (error) => {
+        this.submittedError.set(true)
         this.isLoading = false;
         this.submittedLogin = false;
         this.isLoading = false;
