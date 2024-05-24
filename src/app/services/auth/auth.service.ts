@@ -3,7 +3,7 @@ import { environment } from '../../../environment/environments.production';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { getHeaders } from '../../utils/header';
-import { User } from '../../interfaces/User';
+import { UserRegister } from '../../interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +11,12 @@ import { User } from '../../interfaces/User';
 export class AuthService {
   private BASE_URL = signal(environment.apiUrl);
   private _http = inject(HttpClient);
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<UserRegister>;
+  public currentUser: Observable<UserRegister>;
 
   constructor() {
     const users = localStorage.getItem('currentUser') || '{}';
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(users));
+    this.currentUserSubject = new BehaviorSubject<UserRegister>(JSON.parse(users));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -29,6 +29,10 @@ export class AuthService {
         { headers }
       )
       .pipe(map((currentUser) => this.setUser(currentUser)));
+  }
+
+  public createUser(user: UserRegister): Observable<any> {
+    return this._http.post<any>(`${this.BASE_URL()}/auth/signup`, user);
   }
 
   public get currentUserValue(): any {
@@ -45,7 +49,7 @@ export class AuthService {
     return of({ success: false });
   }
 
-  private setUser(user: User) {
+  private setUser(user: UserRegister) {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
     return user;

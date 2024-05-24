@@ -4,52 +4,166 @@
       <div class="title flex justify-center">
         <img srcset="../../../../assets/images/logo/heroes_silenciosos.png" width="200" height="100"/>
       </div>
-      <div
+      <form [formGroup]="formRegister"
       class="w-full px-3 flex items-center mt-2 mb-5 font-semibold text-gray-500 flex-col">
-    <input
-    class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
-    placeholder="Nombre"
-    type="text"
-    name="name"
-    id=""
-  />
+      <div class="mb-5 w-full">
+        <input
+        class="w-full p-2 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+        placeholder="Nombre"
+        type="text"
+        formControlName="name"
+        name="name"
+        [ngClass]="{'error': formRegister.controls['name'].touched && formRegister.controls['name'].errors}"
+      />
+        @if(formRegister.controls['name'].invalid && formRegister.controls['name'].touched && formRegister.controls['name'].errors?.['required']){ 
+          <div [ngClass]="{'error-hidden': formRegister.controls['name'].valid && !formRegister.controls['name'].errors?.['required']}" class="text-red-500 text-sm">
+            Debes completar el campo correctamente.
+        </div>
+      } @else if( formRegister.controls['name'].invalid && formRegister.controls['name'].touched && formRegister.controls['name'].errors?.['minlength']){ 
+          <div [ngClass]="{'error-hidden': formRegister.controls['name'].valid && !formRegister.controls['name'].errors?.['minlength']}"  class="text-red-500 text-sm">
+            El nombre debe tener al menos 3 caracteres.
+        </div>
+    } @else if( formRegister.controls['name'].invalid && formRegister.controls['name'].touched && formRegister.controls['name'].errors?.['maxlength']){ 
+      <div [ngClass]="{'error-hidden': formRegister.controls['name'].valid} && formRegister.controls['name'].errors?.['maxlength']" class="text-red-500 text-sm">
+        El nombre no puede tener más de 20 caracteres.
+    </div>
+  }
+      </div>
+  
+      <div class="mb-5 w-full">
+        <input
+        class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+        name="email"
+         [ngClass]="{'error': formRegister.controls['email'].touched && formRegister.controls['email'].errors}"
+      />
+        @if(formRegister.controls['email'].invalid && formRegister.controls['email'].touched && formRegister.controls['email'].errors?.['required']){ 
+          <div [ngClass]="{'error-hidden': formRegister.controls['email'].valid && !formRegister.controls['email'].errors?.['required']}" class="text-red-500 text-sm">
+            Debes completar el campo correctamente.
+        </div>
+      } @else if( formRegister.controls['email'].invalid && formRegister.controls['email'].touched && formRegister.controls['email'].errors?.['pattern']){ 
+          <div [ngClass]="{'error-hidden': formRegister.controls['email'].valid && !formRegister.controls['email'].errors?.['minlength']}"  class="text-red-500 text-sm">
+            Debes ingresar un correo electrónico correcto.
+        </div>
+    } @else if(formRegister.controls['email'].touched && emailMatch){ 
+      <div [ngClass]="{'error-hidden': !this.validateEmail.bind(formRegister.controls['email'])}" class="text-red-500 text-sm">
+        El correo electrónico ya existe.
+    </div>
+  }
+      </div>
+<div class="mb-5 w-full">
   <input
-  class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
-  placeholder="Email"
-  type="email"
-  name="email"
-  id=""
-/>
-<input
-class="w-full p-2 mb-5 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+class="w-full p-2 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
 placeholder="Numero telefónico"
 type="tel"
-name="tel"
-id=""
+formControlName="phone"
+name="phone"
+ [ngClass]="{'error': formRegister.controls['phone'].touched && formRegister.controls['phone'].errors}"
 /> 
+  @if(formRegister.controls['phone'].invalid && formRegister.controls['phone'].touched && formRegister.controls['phone'].errors?.['required']){ 
+    <div [ngClass]="{'error-hidden': formRegister.controls['phone'].valid && !formRegister.controls['phone'].errors?.['required']}" class="text-red-500 text-sm">
+      Debes completar el campo correctamente.
+  </div>
+} @else if( formRegister.controls['phone'].invalid && formRegister.controls['phone'].touched && formRegister.controls['phone'].errors?.['minlength']){ 
+    <div [ngClass]="{'error-hidden': formRegister.controls['phone'].valid && !formRegister.controls['phone'].errors?.['minlength']}"  class="text-red-500 text-sm">
+      Deben ser 10 numeros
+  </div>
+} @else if(formRegister.controls['phone'].touched && formRegister.controls['phone'].errors?.['pattern']){ 
+<div [ngClass]="{'error-hidden': !formRegister.controls['phone'].errors?.['pattern']}" class="text-red-500 text-sm">
+  El numero telefónico es incorrecto
+</div>
+}
+</div>
+
 <div class="password-container">
-  <input
-    class="w-full p-2 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+  <div class="mb-5 w-full">
+    <input
+    class="w-full p-2 text-gray-100 bg-blue-900 rounded-md border border-blue-900 focus:bg-blue-900 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
     placeholder="Password"
     [type]="togglepassword()"
     name="password"
-    id="password"
+    formControlName="password"
+    [ngClass]="{'error': formRegister.controls['password'].touched && formRegister.controls['password'].errors}"
   />
+  @if(formRegister.controls['password'].invalid && formRegister.controls['password'].touched && formRegister.controls['password'].errors?.['required']){ 
+    <div [ngClass]="{'error-hidden': formRegister.controls['password'].valid && !formRegister.controls['password'].errors?.['required']}" class="text-red-500 text-sm">
+      Debes completar el campo correctamente.
+  </div>
+} @else if( formRegister.controls['password'].invalid && formRegister.controls['password'].touched && formRegister.controls['password'].errors?.['minlength']){ 
+    <div [ngClass]="{'error-hidden': formRegister.controls['password'].valid && !formRegister.controls['password'].errors?.['minlength']}"  class="text-red-500 text-sm">
+      Deben ser minimo 8 caracteres
+  </div>
+} @else if(formRegister.controls['password'].touched && formRegister.controls['password'].errors?.['maxlength']){ 
+<div [ngClass]="{'error-hidden': !formRegister.controls['password'].errors?.['maxlength']}" class="text-red-500 text-sm">
+  Deben ser maximo 12 caracteres
+</div>
+}
+  </div>
   <button (click)="clickTogglePassword()" type="button" id="toggle-password" class="password-toggle">
     @if(!this.passwordBoolean()){
-      <i class="fas fa-eye  text-blue-900  focus:border-blue-700 hover:border-blue-500"></i>
+      <i class="fas fa-eye  text-gray-900  focus:border-blue-700 hover:border-blue-500"></i>
     } @else {
-      <i class="fas fa-eye-slash text-blue-900  focus:border-blue-700 hover:border-blue-500"></i>
+      <i class="fas fa-eye-slash text-gray-900  focus:border-blue-700 hover:border-blue-500"></i>
     }
   </button>
 </div>
+<div class="mb-5 w-full">
+  <div class="password-container">
+    <input
+      class="w-full p-2 text-gray-100 bg-blue-900 rounded-md border border-blue-900 focus:bg-blue-900 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+      placeholder="Confirma el Password"
+      [type]="togglepassword()"
+      name="confirmedPassword"
+      formControlName="confirmedPassword"
+    />
+    <button (click)="clickTogglePassword()" type="button" class="password-toggle">
+      @if(!this.passwordBoolean()){
+        <i class="fas fa-eye  text-gray-900  focus:border-blue-700 hover:border-blue-500"></i>
+      } @else {
+        <i class="fas fa-eye-slash text-gray-900  focus:border-blue-700 hover:border-blue-500"></i>
+      }
+    </button>
+    
   </div>
+  @if(formRegister.controls['confirmedPassword'].invalid && formRegister.controls['confirmedPassword'].touched && formRegister.controls['confirmedPassword'].errors?.['required']){ 
+    <div [ngClass]="{'error-hidden': formRegister.controls['confirmedPassword'].valid && !formRegister.controls['confirmedPassword'].errors?.['required']}" class="text-red-500 text-sm">
+      Debes completar el campo correctamente.
+  </div>
+  } @else if( formRegister.controls['confirmedPassword'].invalid && formRegister.controls['confirmedPassword'].touched && formRegister.controls['confirmedPassword'].errors?.['minlength']){ 
+    <div [ngClass]="{'error-hidden': formRegister.controls['confirmedPassword'].valid && !formRegister.controls['confirmedPassword'].errors?.['minlength']}"  class="text-red-500 text-sm">
+      Deben ser minimo 8 caracteres
+  </div>
+  } @else if(formRegister.controls['confirmedPassword'].touched && formRegister.controls['confirmedPassword'].errors?.['maxlength']){ 
+  <div [ngClass]="{'error-hidden': !formRegister.controls['confirmedPassword'].errors?.['maxlength']}" class="text-red-500 text-sm">
+  Deben ser maximo 12 caracteres
+  </div>
+  }
+  @else if(formRegister.controls['confirmedPassword'].touched && passwordMatch){ 
+    <div [ngClass]="{'error-hidden': !passwordMatch}" class="text-red-500 text-sm">
+    Las contraseñas no coinciden
     </div>
-    <button class="class-button-form cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+    }
+</div>
+
+  </form>
+    </div>
+    <button type="submit" (click)="onSubmit()" class="class-button-form cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
     border-blue-600
     border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
     active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
-      Enviar
+    <div class="flex justify-center items-center"> 
+      @if(!isLoading){
+        <div>Enviar </div>
+      } @else {
+        <div class="w-10 h-10 border-8 text-blue-400 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full">
+          <svg viewBox="0 0 24 24" fill="currentColor" height="1em" width="1em" class="animate-ping">
+            <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"></path>
+          </svg>
+        </div>
+      }
+  </div>
     </button>
       <a class="font-semibold text-white hover:text-blue-500 transition-all duration-200 mt-4"
         href="" [routerLink]="['/auth/signin']">

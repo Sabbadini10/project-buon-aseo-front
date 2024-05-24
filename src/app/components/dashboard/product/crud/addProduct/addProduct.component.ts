@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { DashboardHeaderComponent } from '../../../dashboardHeader/dashboardHeader.component';
-import { catchError, map, Subscription } from 'rxjs';
+import {  Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../../../services/products/product.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';

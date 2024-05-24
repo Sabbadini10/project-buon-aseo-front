@@ -6,6 +6,8 @@ import { DebugElement } from '@angular/core';
 import { RegisterComponent } from './register.component';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../../services/auth/auth.service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -13,7 +15,7 @@ describe('RegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RegisterComponent, RouterModule, RouterTestingModule.withRoutes([{ path: '', component: RegisterComponent}])   ]
+      imports: [ RegisterComponent, RouterModule,HttpClientModule, RouterTestingModule.withRoutes([{ path: '', component: RegisterComponent}]) ],
     })
     .compileComponents();
   }));

@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { UsersService } from '../../../services/users/users.service';
-import { User, UserType } from '../../../interfaces/User';
+import { UserRegister, UserType } from '../../../interfaces/User';
 import { Color, NgxChartsModule } from '@swimlane/ngx-charts';
 import { ScaleType } from '@swimlane/ngx-charts';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
@@ -16,7 +16,7 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
 export class GraficasUsuariosComponent implements OnInit {
   multi: any[] = [];
   view: [number, number];
-  users: User[] = [];
+  users: UserRegister[] = [];
   usersService = inject(UsersService);
   userTypes: UserType[] = [];
   result: any;
@@ -74,7 +74,7 @@ export class GraficasUsuariosComponent implements OnInit {
 
   loadUsers(): void {
     this.usersService.getUsers().subscribe({
-      next: (data: User[]) => {
+      next: (data: UserRegister[]) => {
         console.log('Datos recibidos1:', data);
         this.users = data;
       },
