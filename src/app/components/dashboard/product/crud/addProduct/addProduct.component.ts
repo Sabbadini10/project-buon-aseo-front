@@ -26,7 +26,8 @@ export class AddProductComponent implements OnInit, OnDestroy  {
   public isLoading = signal(true);
   public loadMessage = signal(true);
   public loadMessageError = signal(true);
-  
+  public image: any;
+  photoUrl: any;
   constructor() {
     this.accountForm = new FormGroup({})
    }
@@ -70,7 +71,7 @@ export class AddProductComponent implements OnInit, OnDestroy  {
   }
 
 
-  private setValues(product: Product[]): void {
+  private setValues(product: Product): void {
     const values = this.productService.mapRequiredValues(product);
     const { controls } = this.accountForm;
     for (const value in values) {
@@ -79,8 +80,46 @@ export class AddProductComponent implements OnInit, OnDestroy  {
       }
     }
   }
-
+  onSelectImage(event: any) {
+    const files: FileList = event.target.files;
+  
+    if (!files.length) {
+      return; // Handle no files selected case (optional)
+    }
+  
+    const formData = new FormData();
+  
+    for (let i = 0; i < files.length; i++) {
+      const file: File = files[i];
+      formData.append('image', file);
+    }
+    this.image = formData
+ /*     this.productService.addProducts(formData).subscribe({
+      next: (data) => {
+        console.log(data)
+        if(data){
+          this.loadMessage.update(value => value != value)
+        }
+      },
+      error: (error) => {
+        this.loadMessageError.update(value => value != value)
+        console.error('Error:', error);
+      },
+    }) */
+  }
   private buildProduct(){
+    const files: FileList = this.accountForm.controls['image'].value;
+  
+    if (!files.length) {
+      return; // Handle no files selected case (optional)
+    }
+  
+    const formData = new FormData();
+  
+    for (let i = 0; i < files.length; i++) {
+      const file: File = files[i];
+      formData.append('image', file);
+    }
     return {
       name: this.accountForm.controls['name'].value,
       idCode: this.accountForm.controls['idCode'].value,
@@ -109,7 +148,34 @@ private buildUpdateProduct(){
 }
 
 createProduct() {
-  const product = [this.buildProduct()];
+  const productData = this.accountForm.value;
+
+  if (this.image) {
+    for (const key in productData) {
+      if (productData.hasOwnProperty(key)) {
+        this.image.append(key, productData[key]);
+      }
+    }
+
+    this.productService.addProducts(this.image).subscribe({
+      next: (data) => {
+        console.log(data);
+        if (data) {
+          this.loadMessage.update(value => !value);
+        }
+      },
+      error: (error) => {
+        this.loadMessageError.update(value => !value);
+        console.error('Error:', error);
+      },
+    });
+  } else {
+    console.error('No images selected.');
+  }
+}
+
+/* createProduct() {
+  const product = this.buildProduct();
   console.log(product);
     this.subs.push(
       this.productService.addProducts(product).subscribe({
@@ -126,7 +192,8 @@ createProduct() {
       })
     );
    
-}
+}  */
+
 
 updateProduct() {
   const product = [this.buildUpdateProduct()];
@@ -147,6 +214,7 @@ updateProduct() {
     );
    
 }
+
 
 
 onSubmit() {

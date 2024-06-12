@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { ProductService } from '../../../services/products/product.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
@@ -14,7 +14,7 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
 })
 export class GraficasComponent {
   multi: any[] = [];
-  products: Product[] = [];
+  /* products: Product[] = []; */
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -31,10 +31,12 @@ export class GraficasComponent {
   };
 
   public view: [number, number];
-  constructor(private productService: ProductService) {
+  private productService = inject(ProductService)
+  public products = signal<Array<Product>>([])
+  constructor(/* private productService: ProductService */) {
     this.productService.getProducts(1, 5).subscribe({
       next: (data) => {
-        this.products = data.products;
+        this.products.set(data.products);
       },
       error: (error) => {
         console.error('Error:', error);

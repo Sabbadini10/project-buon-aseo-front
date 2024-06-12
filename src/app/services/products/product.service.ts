@@ -20,13 +20,19 @@ export class ProductService {
     );
   }
 
+  getProductsList(): Observable<any> {
+    return this._http.get(
+      `${this.BASE_URL()}/product/productList`
+    );
+  }
+
   getProductsId(id: string): Observable<any> {
     return this._http.get(
       `${this.BASE_URL()}/product/productId/${id}`
     );
   }
 
-  addProducts(body: Product[]): Observable<any> {
+  addProducts(body: any): Observable<any> {
     return this._http.post(`${this.BASE_URL()}/product/productAdd`, body);
   }
 

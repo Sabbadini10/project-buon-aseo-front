@@ -60,13 +60,15 @@
             name="smell"
             formControlName="smell"
           />
-          <input
-            class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
-            placeholder="Imagen"
-            type="file"
-            name="image"
-            formControlName="image"
-          />
+            <input
+              class="w-full p-2 mb-5 text-gray-100 bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
+              placeholder="Imagen"
+              type="file"
+              name="image"
+              formControlName="image"
+               accept="image/*"
+              (change)="onSelectImage($event)"
+            />
           <textarea
             class="w-full p-2 mb-5 text-gray-100 resize-none bg-blue-900 rounded-md border border-gray-700 focus:border-blue-700 hover:border-blue-500 transition-all duration-200"
             placeholder="Descripción"

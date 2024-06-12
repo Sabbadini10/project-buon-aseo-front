@@ -1,70 +1,67 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../../interfaces/Product';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ProductService } from '../../../services/products/product.service';
+import { Product } from '../../../interfaces/Product';
+import { UserRegister } from '../../../interfaces/User';
+import { UsersService } from '../../../services/users/users.service';
 
 @Component({
   selector: 'app-carrousel',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule, CarouselModule, ButtonModule],
   templateUrl: './carrousel.component.html',
   styleUrls: ['./carrousel.component.css'],
-   /*  providers: [ProductService] */
 })
 export class CarrouselComponent implements OnInit {
 
-  products: Product[] | undefined;
-  productos = [{
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-}]
+ productService = inject(ProductService);
+    products = signal<Array<Product>>([]); 
+    users= signal<Array<UserRegister>>([]);
+  usersService = inject(UsersService);
+  page: number = 1;
+  limit: number = 6;
+     responsiveOptions: any[] = []; 
 
-  responsiveOptions: any[] | undefined;
 
-  constructor(private productService: ProductService) {}
+  constructor() {}
+  
 
-  ngOnInit() {
-     /*  this.productService.getProductsSmall().then((products: Product) => {
-          this.products = products;
-      }); */
 
-      this.responsiveOptions = [
-          {
-              breakpoint: '1199px',
-              numVisible: 1,
-              numScroll: 1
-          },
-          {
-              breakpoint: '991px',
-              numVisible: 2,
-              numScroll: 1
-          },
-          {
-              breakpoint: '767px',
-              numVisible: 1,
-              numScroll: 1
-          }
-      ];
+  ngOnInit(): void {
+    this.productService.getProducts(this.page,this.limit).subscribe({
+        next: (data) => {
+            console.log('Datos recibidos2:', data.products);
+          this.products.set(data.products);
+        },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+      });
+      
+      
+       this.responsiveOptions = [
+        {
+            breakpoint: '1199px',
+            numVisible: 1,
+            numScroll: 1
+        },
+        {
+            breakpoint: '991px',
+            numVisible: 2,
+            numScroll: 1
+        },
+        {
+            breakpoint: '767px',
+            numVisible: 1,
+            numScroll: 1
+        }
+    ];
+    }
+
   }
 
-  getSeverity(status: string) {
-          let dato;
-          switch (status) {
-          case 'INSTOCK':
-              return dato ='success';
-          case 'LOWSTOCK':
-              return dato = 'warning';
-          case 'OUTOFSTOCK':
-              return dato ='danger';
-      }
-      return dato
-  }
 
-}
+

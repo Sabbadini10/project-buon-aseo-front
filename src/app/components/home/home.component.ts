@@ -9,6 +9,7 @@ import { CarrouselComponent } from './carrousel/carrousel.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from '../../services/products/product.service';
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -20,9 +21,7 @@ import { ProductService } from '../../services/products/product.service';
     BannerComponent,
     CarrouselComponent,
     FormsModule,
-    HttpClientModule
   ],
-  providers: [ProductService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
