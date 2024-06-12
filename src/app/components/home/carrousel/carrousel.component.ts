@@ -33,7 +33,6 @@ export class CarrouselComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts(this.page,this.limit).subscribe({
         next: (data) => {
-            console.log('Datos recibidos2:', data.products);
           this.products.set(data.products);
         },
         error: (error) => {

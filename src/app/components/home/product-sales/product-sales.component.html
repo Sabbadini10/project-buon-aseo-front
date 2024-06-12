@@ -1,70 +1,40 @@
 @defer (on viewport) {
-  <div class="bg-white">
-    <div
-      class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
-    >
-      <div class="flex justify-center">
-        <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-5">
-          Ultimos productos
-        </h2>
+  <div class="flex justify-center">
+    <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-5">
+      Ultimos productos
+    </h2>
+  </div>
+  <div class="flex justify-around flex-wrap px-5">
+    @for(product of products(); track $index){
+      <div class="card my-5">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 xl:gap-x-8">
+            <div class="group relative">
+              <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                <img srcset="http://localhost:3030{{product.image}}" alt="{{product.name}}" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+              </div>
+              <!-- <div class="mt-4 flex justify-between">
+                <div>
+                  <h3 class="text-sm text-gray-100">
+                    <a href="" [routerLink]="['/dashboard/productAdmin/edit/', product._id]">
+                      <span aria-hidden="true" class="absolute inset-0"></span>
+                      Detalles
+                    </a>
+                  </h3>
+                </div>
+              </div> -->
+              <h3 class="mt-4 text-sm text-gray-900"><strong>{{product.name}}</strong></h3>
+                <p class="text-sm font-medium text-gray-900">Precio: {{product.price - product.discount | toFixed | currency:'USD':'symbol':'1.0-0'}}</p>
+                <div class="flex">
+                  <p class="text-sm font-medium text-gray-900 mr-1">Precio anterior: </p>
+                  <p class="text-sm font-medium text-gray-900 line-through">{{product.price | toFixed | currency:'USD':'symbol':'1.0-0'}}</p>
+                </div>
+                <p class="text-sm font-medium text-gray-900">Descuento: {{product.discount | toFixed | currency:'USD':'symbol':'1.0-0'}}</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
-      >
-        <a href="#" class="group">
-          <div
-            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"
-          >
-            <img
-              srcset="../../../../assets/images/productos/Detergente-Ala.png"
-              alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-              class="h-full w-full object-cover object-center group-hover:opacity-75"
-            />
-          </div>
-          <h3 class="mt-4 text-sm text-gray-700">Detergente Ala</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">$1200</p>
-        </a>
-        <a href="#" class="group">
-          <div
-            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"
-          >
-            <img
-              srcset="../../../../assets/images/productos/Detergente-cif.png"
-              alt="Olive drab green insulated bottle with flared screw lid and flat top."
-              class="h-full w-full object-cover object-center group-hover:opacity-75"
-            />
-          </div>
-          <h3 class="mt-4 text-sm text-gray-700">Detergente Cif</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">$1000</p>
-        </a>
-        <a href="#" class="group">
-          <div
-            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"
-          >
-            <img
-              srcset="../../../../assets/images/productos/Suavisante-vivere.png"
-              alt="Person using a pen to cross a task off a productivity paper card."
-              class="h-full w-full object-cover object-center group-hover:opacity-75"
-            />
-          </div>
-          <h3 class="mt-4 text-sm text-gray-700">Suavisante Vivere</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">$890</p>
-        </a>
-        <a href="#" class="group">
-          <div
-            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"
-          >
-            <img
-              srcset="../../../../assets/images/productos/Jabon-polvo.png"
-              alt="Hand holding black machined steel mechanical pencil with brass tip and top."
-              class="h-full w-full object-cover object-center group-hover:opacity-75"
-            />
-          </div>
-          <h3 class="mt-4 text-sm text-gray-700">Jabon en polvo Skip</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">$1350</p>
-        </a>
-      </div>
-    </div>
+    }
   </div>
 } @placeholder {
   <p>...cargando</p>

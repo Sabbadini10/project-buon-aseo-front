@@ -10,4 +10,6 @@ export interface Product {
   stock: number;
   volume: string;
   value?: number;
+  productOfert?: boolean;
+  productUltimate?: boolean;
 }
