@@ -1,16 +1,16 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ProductService } from '../../../services/products/product.service';
-import { Product } from '../../../interfaces/Product';
-import { ToFixedPipe } from '../../../core/pipes/toFixed/toFixed.pipe';
+import { Product } from '../../interfaces/Product';
+import { ProductService } from '../../services/products/product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ToFixedPipe } from '../../core/pipes/toFixed/toFixed.pipe';
 
 @Component({
-  selector: 'app-product-ofert',
+  selector: 'app-productOfert',
   standalone: true,
   imports: [CommonModule, RouterModule, ToFixedPipe],
-  templateUrl: './product-ofert.component.html',
-  styleUrls: ['./product-ofert.component.css']
+  templateUrl: './productOfert.component.html',
+  styleUrls: ['./productOfert.component.css']
 })
 export class ProductOfertComponent implements OnInit {
   private productService = inject(ProductService)
@@ -20,12 +20,10 @@ export class ProductOfertComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
     this.productService.getProducts(this.page(), this.limit()).subscribe({
       next: (data) => {
     const offeredProducts = data.products.filter((product: Product) => product.productOfert === true);
-    const firstFourOffered = offeredProducts.slice(0, 4);
-    this.products.set(firstFourOffered);
+    this.products.set(offeredProducts);
         console.log(this.products())
       },
       error: (error) => {
@@ -33,5 +31,5 @@ export class ProductOfertComponent implements OnInit {
       },
     });
   }
+  }
 
-}

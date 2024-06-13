@@ -13,6 +13,9 @@ import { ListProductComponent } from './components/dashboard/product/crud/listPr
 import { AddProductComponent } from './components/dashboard/product/crud/addProduct/addProduct.component';
 import { EditProductComponent } from './components/dashboard/product/crud/editProduct/editProduct.component';
 import { DeleteProductComponent } from './components/dashboard/product/crud/deleteProduct/deleteProduct.component';
+import { ProductOfertComponent } from './components/productOfert/productOfert.component';
+import { ProductUltimateComponent } from './components/productUltimate/productUltimate.component';
+import { DetailProductComponent } from './components/detailProduct/detailProduct.component';
 
 export const routes: Routes = [
   {
@@ -100,7 +103,21 @@ export const routes: Routes = [
                         }
     ],
   },
-
+  {
+    path: 'productOfert',
+    title: 'Productos en oferta',
+    component: ProductOfertComponent,
+  },
+  {
+    path: 'productUltimate',
+    title: 'Ultimos productos',
+    component: ProductUltimateComponent,
+  },
+  {
+    path: 'productDetail/:id',
+    title: 'Detalle de producto',
+    component: DetailProductComponent,
+  },
   {
     path: '',
     redirectTo: '/auth',

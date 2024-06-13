@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { routes } from '../../app.routes';
-import { Event, NavigationEnd, Router } from '@angular/router';
+import { Event, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { AuthGuard } from '../../core/guards/auth.guard';
@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, RouterModule],
   providers: [AuthGuard, AuthService],
 })
 export class HeaderComponent implements OnInit {
