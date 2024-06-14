@@ -16,6 +16,9 @@ import { DeleteProductComponent } from './components/dashboard/product/crud/dele
 import { ProductOfertComponent } from './components/productOfert/productOfert.component';
 import { ProductUltimateComponent } from './components/productUltimate/productUltimate.component';
 import { DetailProductComponent } from './components/detailProduct/detailProduct.component';
+import { TermsAndDefinitionsComponent } from './components/TermsAndDefinitions/TermsAndDefinitions.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { HelpComponent } from './components/help/help.component';
 
 export const routes: Routes = [
   {
@@ -117,6 +120,21 @@ export const routes: Routes = [
     path: 'productDetail/:id',
     title: 'Detalle de producto',
     component: DetailProductComponent,
+  },
+  {
+    path: 'termsAndDefinitions',
+    title: 'Términos y condiciones',
+    component: TermsAndDefinitionsComponent,
+  },
+  {
+    path: 'privacity',
+    title: 'Cuidamos tu privacidad',
+    component: PrivacyComponent,
+  },
+  {
+    path: 'help',
+    title: 'Ayuda',
+    component: HelpComponent,
   },
   {
     path: '',
