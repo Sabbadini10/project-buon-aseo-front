@@ -19,6 +19,7 @@ import { DetailProductComponent } from './components/detailProduct/detailProduct
 import { TermsAndDefinitionsComponent } from './components/TermsAndDefinitions/TermsAndDefinitions.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { HelpComponent } from './components/help/help.component';
+import { CarComponent } from './components/car/car.component';
 
 export const routes: Routes = [
   {
@@ -135,6 +136,11 @@ export const routes: Routes = [
     path: 'help',
     title: 'Ayuda',
     component: HelpComponent,
+  },
+  {
+    path: 'car/:id',
+    title: 'Carrito',
+    component: CarComponent,
   },
   {
     path: '',
