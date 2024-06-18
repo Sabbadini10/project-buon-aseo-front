@@ -13,10 +13,11 @@ import { ToFixedPipe } from '../../core/pipes/toFixed/toFixed.pipe';
   styleUrls: ['./productOfert.component.css']
 })
 export class ProductOfertComponent implements OnInit {
-  private productService = inject(ProductService)
+  private productService = inject(ProductService);
   public products = signal<Array<Product>>([])
   public limit = signal(16)
   public page = signal(1)
+
   constructor() { }
 
   ngOnInit() {

@@ -1,6 +1,10 @@
 <app-banner />
 <app-carrousel />
+@defer( on timer(5)){
 <app-product-sales />
-<app-product-ofert />
+}
+@defer( on timer(5)){
+    <app-product-ofert />
+    }
 <app-pay-method />
 <app-brands />
