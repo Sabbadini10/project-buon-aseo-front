@@ -19,7 +19,8 @@ import { DetailProductComponent } from './components/detailProduct/detailProduct
 import { TermsAndDefinitionsComponent } from './components/TermsAndDefinitions/TermsAndDefinitions.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { HelpComponent } from './components/help/help.component';
-import { CarComponent } from './components/car/car.component';
+import { CartListComponent } from './components/cart/cartList/cartList.component';
+import { CartDeleteComponent } from './components/cart/cartDelete/cartDelete.component';
 
 export const routes: Routes = [
   {
@@ -138,9 +139,20 @@ export const routes: Routes = [
     component: HelpComponent,
   },
   {
-    path: 'car/:id',
+    path: 'cart',
     title: 'Carrito',
-    component: CarComponent,
+    children: [
+      {
+        path: 'list/:id',
+        title: 'Carrito',
+        component: CartListComponent,
+      },
+      {
+        path: 'delete/:id',
+        title: 'Borrar carrito',
+        component: CartDeleteComponent,
+      }
+    ]
   },
   {
     path: '',

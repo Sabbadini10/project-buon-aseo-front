@@ -99,9 +99,8 @@
                 </div>
               </div>
               <div class="space-y-6 border-t border-gray-200 px-4 py-6">
-                <a href="#" [routerLink]="['/productOfert']" class="-m-2 block p-2 font-medium text-gray-100"
-                  >Ofertas</a
-                >
+                <button [routerLink]="['/productOfert']" class="-m-2 block p-2 font-medium text-gray-100"
+                  >Ofertas</button>
               </div>
               <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                 <a href="#" class="-m-2 block p-2 font-medium text-gray-100"
@@ -120,7 +119,7 @@
               </div>
         </div>
       </div>
-    }
+    } 
     </header>
   
   
@@ -139,7 +138,7 @@
             </a>
           </div>
 
-          <div class="desktop-media-query lg:ml-8 lg:block lg:self-stretch">
+          <div class="desktop-media-query z-50 lg:ml-8 lg:block lg:self-stretch">
             <div class="flex h-full space-x-8">
               <div class="flex">
                 <div class="relative flex">
@@ -557,10 +556,10 @@
                 }
               </div>
 
-              <a
-                href="#" [routerLink]="['/productOfert']"
+              <button
+                [routerLink]="['/productOfert']"
                 class="desktop-media-query flex items-center text-sm font-medium text-gray-100 hover:text-gray-800"
-                >Ofertas</a
+                >Ofertas</button
               >
               <a
                 href="#"
